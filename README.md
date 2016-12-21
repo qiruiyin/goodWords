@@ -1,0 +1,2 @@
+# goodWords
+好字
