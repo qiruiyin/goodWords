@@ -63,10 +63,10 @@ module.exports = {
       },{
         test: /\.css$/,
         loader: 'style!css'
-      // },{
+      },{
       //   test: /\.scss$/,
       //   loader: 'style!css!autoprefixer!sass?sourceMap'
-      },{
+      // },{
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url',
         query: {

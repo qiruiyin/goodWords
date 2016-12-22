@@ -1,0 +1,35 @@
+@import '~assets/css/spriter';
+
+@function px2em($px, $base-font-size: 28px) {
+    @if (unitless($px)) {
+        @warn "Assuming #{$px} to be in pixels, attempting to convert it into pixels for you";
+        @return px2em($px + 0px); // That may fail.
+    } @else if (unit($px) == em) {
+        @return $px;
+    }
+    @return ($px / $base-font-size) * 1em;
+}
+// 不同分辨率下字体大小
+@mixin font-dpr($font-size){
+  font-size: $font-size;
+
+  [data-dpr="2"] & {
+    font-size: $font-size * 2;
+  }
+
+  [data-dpr="3"] & {
+    font-size: $font-size * 3;
+  }
+}
+// 不同分辨率下图片选用
+@mixin img-dpr($class){
+  @extend #{$class};
+
+  [data-dpr="2"] & {
+    @extend "#{$class}2x";
+  }
+
+  [data-dpr="3"] & {
+    @extend "#{$class}3x";
+  }
+}

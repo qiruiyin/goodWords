@@ -1,0 +1,11 @@
+@import '~lib/sandal/core';
+@import 'vars', 'functions';
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0 auto;
+	background-color: $colorBg;
+}

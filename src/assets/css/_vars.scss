@@ -1,0 +1,25 @@
+// 公共变量
+@import 'functions';
+// 间距（涉及大小的均需折半处理）
+$paddingLeft: px2em(20); // 20px 30px //左右间距
+$paddingRight: px2em(30); // 20px 30px //左右间距
+$marginBottom: px2em(30); //30px; //卡片、模块上下间距
+
+// color颜色
+// 字体颜色
+$colorTitleRed: #ec5a35; //用于标题价格
+$colorTitleBlack: #1a1a1a; //标题
+$colorTitle: #333; //标题
+$colorArticle: #666; //文章摘要
+$colorSubText: #999; //次要文字/时间
+$colorTime: #999; //次要文字/时间
+$colorTips: #ccc; //提示性文字
+// 背景色
+$colorBg: #f5f5f5; //背景颜色
+$colorLine: #e1e1e1; //分割线颜色
+
+// 字体大小（此处文字需要根据页面效果修改，一般折半，考虑到正文一般是14px，将文字大小微调提示除外，苹方这种字体建议不考虑，使用常规字体就好）
+$fontTitle: 28px; //28px; //标题 苹方中等
+$font: 28px; //28px; //正文标题 苹方常规
+$fontAbs: 26px; //26px; //摘要/人名 苹方常规
+$fontLabel: 24px; //24px; //标签/辅助性文字 苹方常规
