@@ -6,6 +6,7 @@
 }
 
 body {
+	max-width: $maxWidth;
 	margin: 0 auto;
 	background-color: $colorBg;
 }

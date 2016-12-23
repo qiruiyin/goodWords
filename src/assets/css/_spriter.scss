@@ -1,4 +1,4 @@
-
+// 搜索
 .icon-search_icon {
   background: url("~assets/img/search/search_icon.png");
   width: 16px;
@@ -14,9 +14,9 @@
   width: 48px;
   height: 47px;
 }
-
+// 搜索目录
 .icon-book {
-  background: url("~assets/img/search/search_icon.png");
+  background: url("~assets/img/search/book.png");
   width: 19px;
   height: 18px;
 }
@@ -29,4 +29,114 @@
   background: url("~assets/img/search/book3x.png");
   width: 57px;
   height: 53px;
+}
+// 点赞
+.icon-zan {
+  background: url("~assets/img/spriter/zan.png");
+  width: 20px;
+  height: 20px;
+}
+.icon-zan2x {
+  background: url("~assets/img/spriter/zan2x.png");
+  width: 40px;
+  height: 40px;
+}
+.icon-zan3x {
+  background: url("~assets/img/spriter/zan3x.png");
+  width: 60px;
+  height: 60px;
+}
+.icon-zan_active {
+  background: url("~assets/img/spriter/zan_active.png");
+  width: 20px;
+  height: 20px;
+}
+.icon-zan_active2x {
+  background: url("~assets/img/spriter/zan_active2x.png");
+  width: 40px;
+  height: 40px;
+}
+.icon-zan_active3x {
+  background: url("~assets/img/spriter/zan_active3x.png");
+  width: 60px;
+  height: 60px;
+}
+
+// 收藏
+.icon-store {
+  background: url("~assets/img/spriter/store.png");
+  width: 20px;
+  height: 20px;
+}
+.icon-store2x {
+  background: url("~assets/img/spriter/store2x.png");
+  width: 40px;
+  height: 40px;
+}
+.icon-store3x {
+  background: url("~assets/img/spriter/store3x.png");
+  width: 60px;
+  height: 60px;
+}
+.icon-store_active {
+  background: url("~assets/img/spriter/store_active.png");
+  width: 20px;
+  height: 20px;
+}
+.icon-store_active2x {
+  background: url("~assets/img/spriter/store_active2x.png");
+  width: 40px;
+  height: 40px;
+}
+.icon-store_active3x {
+  background: url("~assets/img/spriter/store_active3x.png");
+  width: 60px;
+  height: 60px;
+}
+// 购物车
+.icon-cart {
+  background: url("~assets/img/spriter/cart.png");
+  width: 20px;
+  height: 20px;
+}
+.icon-cart2x {
+  background: url("~assets/img/spriter/cart2x.png");
+  width: 40px;
+  height: 40px;
+}
+.icon-cart3x {
+  background: url("~assets/img/spriter/cart3x.png");
+  width: 60px;
+  height: 60px;
+}
+.icon-cart_active {
+  background: url("~assets/img/spriter/cart_active.png");
+  width: 20px;
+  height: 20px;
+}
+.icon-cart_active2x {
+  background: url("~assets/img/spriter/cart_active2x.png");
+  width: 40px;
+  height: 40px;
+}
+.icon-cart_active3x {
+  background: url("~assets/img/spriter/cart_active3x.png");
+  width: 60px;
+  height: 60px;
+}
+// 购物车(悬浮)
+.icon-cart_big {
+  background: url("~assets/img/spriter/cart_big.png");
+  width: 68px;
+  height: 68px;
+}
+.icon-cart_big2x {
+  background: url("~assets/img/spriter/cart_big2x.png");
+  width: 136px;
+  height: 136px;
+}
+.icon-cart_big3x {
+  background: url("~assets/img/spriter/cart_big3x.png");
+  width: 204px;
+  height: 204px;
 }

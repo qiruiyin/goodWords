@@ -1,3 +1,7 @@
+<!-- 
+ 搜索组件
+ -->
+
 <template>
 	<div class="search">
 		<div class="search-label">
@@ -89,6 +93,7 @@
 		line-height: px2em(50);
 		@include font-dpr(14px);
 		border-bottom: 1px solid $colorLine;
+		margin-bottom: $marginBottom;
 
 		&:before, &:after {
 			content: "";
