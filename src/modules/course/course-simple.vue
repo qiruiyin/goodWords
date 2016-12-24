@@ -1,10 +1,10 @@
 <!-- 
  汉字思维课
  -->
+
 <template>
 	<div>
 		<search></search>
-		<img class="img banner" src="~assets/img/banner.jpg" alt="banner">
 		<card v-for="item in cardDatas" :card-data="item">
 		</card>
 		<cart></cart>
@@ -28,24 +28,24 @@
 				cardDatas: [
 					{
 						imgPath: card1,
-						url: 'courseSimple',
-						params: { 'courseId': 1 },
-						title: '汉字思维免费礼包（5集）',
+						url: 'courseSpree',
+						params: {},
+						title: '汉字思维免费课',
 						price: '￥2000.00',
 						num: 4,
-						actions: ['zan']
+						actions: ['zan', 'store', 'cart']
 					},{
 						imgPath: card2,
-						url: 'courseSimple',
-						params: { 'courseId': 1 },
+						url: 'courseSpree',
+						params: {},
 						title: '汉字思维免费礼包（5集）',
 						price: '￥2000.00',
 						num: 5,
-						actions: ['zan', 'store']
+						actions: ['zan', 'store', 'cart']
 					},{
 						imgPath: card1,
-						url: 'courseSimple',
-						params: { 'courseId': 1 },
+						url: 'courseSpree',
+						params: {},
 						title: '汉字思维免费礼包（5集）',
 						price: '￥2000.00',
 						num: 5,

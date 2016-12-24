@@ -5,13 +5,15 @@
 <template>
 	<div class="card">
 		<div class="card-header">
-			<img class="img" :src="cardData.imgPath" alt="card">
+			<router-link :to="{ name: cardData.url, params: cardData.params }">
+				<img class="img" :src="cardData.imgPath" alt="card">
+			</router-link>
 		</div>
 		<div class="card-body">
 			<h3>{{ cardData.title }}</h3>
-			<div class="price">{{ cardData.price }}<span> x {{ cardData.num }}集</span></div>
+			<div v-if="cardData.price" class="price">{{ cardData.price }}<span> x {{ cardData.num }}集</span></div>
 			<ul class="actions">
-				<li :class="[item.value, {'active' : item.num > 0}]" v-for="(item, index) in actions" @click="setActionNums(index)">
+				<li :class="[item.value, {'active' : item.num > 0}]" v-for="(item, index) in filterActions" @click="setActionNums(index)">
 					{{ item.name }}
 				</li>
 			</ul>
@@ -30,7 +32,7 @@
 						name: "点赞",
 						value: 'zan',
 						choosed: false,
-						num: 1
+						num: 0
 					},{
 						name: '收藏',
 						value: 'store',
@@ -40,9 +42,17 @@
 						name: '购物车',
 						value: 'cart',
 						choosed: false,
-						num: 2
+						num: 0
 					}
 				]
+			}
+		},
+		computed: {
+			filterActions () {
+				let actions = this.cardData.actions || []
+				return this.actions.filter(function(elem, index) {
+					return actions.indexOf(elem.value) != -1
+				})
 			}
 		},
 		methods: {
@@ -61,20 +71,18 @@
 	.card {
 		margin-bottom: $marginBottom;
 		@include font-dpr($fontLabel);
-	}
-
-	.img {
-		margin-bottom: px2em(25)
+		background: $colorBgWhite;
 	}
 
 	.card-body {
 		position: relative;
-		padding: 0 $paddingRight 0 $paddingLeft
+		padding: px2em(25) $paddingRight px2em(25) $paddingLeft
 	}
 
 	h3 {
 		@include font-dpr($font);
 		color: $colorTitleBlack;
+		font-weight: normal;
 	}
 
 	.price {

@@ -1,7 +1,10 @@
+<!-- 
+	我的订单列表
+ -->
+
 <template>
-	<div>
-		<p>{{ ceshi }}</p>
-		<router-link :to="{ name: 'course' }">About</router-link>
+	<div class="my-order">
+		
 	</div>
 </template>
 
@@ -9,12 +12,12 @@
 	export default {
 		data () {
 			return {
-				ceshi: 'wedhsljk'
+
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-
+	
 </style>

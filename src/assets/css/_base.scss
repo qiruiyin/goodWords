@@ -1,4 +1,4 @@
-@import '~lib/sandal/core';
+@import '~lib/sandal/core', '~lib/sandal/core/reset';
 @import 'vars', 'functions';
 
 * {
@@ -9,4 +9,9 @@ body {
 	max-width: $maxWidth;
 	margin: 0 auto;
 	background-color: $colorBg;
+}
+
+.img {
+	width: 100%;
+	display: block;
 }

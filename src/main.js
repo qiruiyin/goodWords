@@ -5,7 +5,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router/router'
 
-require('assets/css/base.scss')
+// require('lib/weui/src/style/weui.less')
+import 'assets/css/common.scss'
 
 const app = new Vue({
   router: router,

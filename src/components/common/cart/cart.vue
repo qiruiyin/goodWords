@@ -3,7 +3,7 @@
 -->
 
 <template>
-	<div class="cart">
+	<div class="cart" @click="goShopCart">
 		<div v-if="cartNum < 100" :class="['cart-num', { 'hide-num': cartNum <= 0 }]">{{ cartNum }}</div>
 		<div v-else>
 			<div class="cart-num ellipsis">99+</div>
@@ -18,12 +18,15 @@
 				cartNum: 1
 			}
 		},
-		methoods: {
+		methods: {
 			setCartNum (num) {
 				this.cartNum = num
 			},
 			getCartNum () {
 				return this.cartNum
+			},
+			goShopCart () {
+				this.$router.push({name: 'shopCart'});
 			}
 		}
 	}

@@ -1,0 +1,37 @@
+// 文章css
+@import '~lib/sandal/core';
+@import '../vars', '../functions';
+
+$articlePadding: px2em(30);
+
+.article {
+	margin-bottom: $marginBottom;
+	background-color: $colorBgWhite;
+}
+
+.article-header {
+	padding-left: $paddingLeft;
+	padding-right: $paddingRight;
+	line-height: px2em(114);
+	border-bottom: 1px solid $colorLine;
+	@include font-dpr($fontTitle);
+	color: $colorTitleBlack;
+}
+
+.article-body {
+	&.article-body-padding {
+		padding: $articlePadding 0;
+	}
+	&.article-body-bg {
+		background-color: $colorBg;
+	}
+
+	p {
+		padding: 0 $paddingRight 0 $paddingLeft;
+		line-height: 1.5;
+		@include font-dpr(14px);
+		color: $colorArticle;
+	}
+}
+
+

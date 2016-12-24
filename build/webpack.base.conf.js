@@ -62,15 +62,18 @@ module.exports = {
         loader: 'json'
       },{
         test: /\.css$/,
-        loader: 'style!css'
+        loader: 'style!css!autoprefixer'
       },{
-      //   test: /\.scss$/,
-      //   loader: 'style!css!autoprefixer!sass?sourceMap'
-      // },{
+        test: /\.less$/,
+        loader: 'less'
+      },{
+        test: /\.scss$/,
+        loader: 'sass'
+      },{
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url',
         query: {
-          limit: 10000,
+          limit: 1000,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
       },{

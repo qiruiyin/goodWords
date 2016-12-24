@@ -1,10 +1,10 @@
 <!-- 
- 汉字思维课
+ 我的课程
  -->
+
 <template>
 	<div>
 		<search></search>
-		<img class="img banner" src="~assets/img/banner.jpg" alt="banner">
 		<card v-for="item in cardDatas" :card-data="item">
 		</card>
 		<cart></cart>
@@ -28,28 +28,25 @@
 				cardDatas: [
 					{
 						imgPath: card1,
-						url: 'courseSimple',
-						params: { 'courseId': 1 },
-						title: '汉字思维免费礼包（5集）',
-						price: '￥2000.00',
-						num: 4,
-						actions: ['zan']
+						url: 'myCourseDetail',
+						params: {
+							courseId: 1
+						},
+						title: '盘古开天第1集',
 					},{
 						imgPath: card2,
-						url: 'courseSimple',
-						params: { 'courseId': 1 },
-						title: '汉字思维免费礼包（5集）',
-						price: '￥2000.00',
-						num: 5,
-						actions: ['zan', 'store']
+						url: 'myCourseDetail',
+						params: {
+							courseId: 1
+						},
+						title: '盘古开天第1集',
 					},{
 						imgPath: card1,
-						url: 'courseSimple',
-						params: { 'courseId': 1 },
-						title: '汉字思维免费礼包（5集）',
-						price: '￥2000.00',
-						num: 5,
-						actions: ['zan', 'store', 'cart']
+						url: 'myCourseDetail',
+						params: {
+							courseId: 1
+						},
+						title: '盘古开天第1集',
 					}
 				]
 			}

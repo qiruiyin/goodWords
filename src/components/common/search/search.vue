@@ -83,7 +83,7 @@
 	$searchPaddingTop: px2em(20);
 	$searchPaddingBottom: $searchPaddingTop;
 	$searchMenuWidth: px2em(70); 
-	$searchLabelBg: #fff;
+	$searchLabelBg: $colorBgWhite;
 
 	.search {
 		position: relative;
@@ -114,10 +114,10 @@
 		position: relative;
 		width: px2em(104);
 		text-align: center;
+		border-bottom: 1px solid $searchColor;
 	}
 	.search-label-current {
 		position: relative;
-		border-bottom: 1px solid $searchColor;
 		color: $searchColor;
 
 		&:before {
