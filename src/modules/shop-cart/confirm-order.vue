@@ -20,7 +20,7 @@
 
 		<div class="btns">
 			<label>合计：<span>￥1770.00</span></label>
-			<div class="next" @click="next">确认支付</div>
+			<div class="next" @click="next">下一步</div>
 		</div>
 	</div>
 </template>
@@ -46,6 +46,7 @@
 				orderDatas: {
 					coupon: {
 						label: '优惠券',
+						nameIcon: 'weixin',
 						labelIcon: 'weixin',
 						name: '满2000减去300',
 						nameIcon: 'weixin',
@@ -60,6 +61,7 @@
 					payment: {
 						label: '支付方式',
 						name: '微信支付',
+						nameIcon: 'weixin',
 						value: '',
 						icon: 'weixin'
 					},

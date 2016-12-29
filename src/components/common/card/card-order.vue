@@ -1,20 +1,22 @@
 <!-- 
 	订单卡片
  -->
-
+<!-- 
+	删除时会触发删除事件，建议给个唯一标识，可以返回
+ -->
 <template>
-	<div class="card-order">
+	<div :class="['card-order', {hide: hide}]">
 		<div class="card-order-header">
 			<label>订单号：{{ cardOrderData.title }}</label>
-			<slot name="header-btn"></slot>					
+			<div class="icon icon-trash" v-if="cardOrderData.deleteBtn" @click="deleteCard"></div>			
 		</div>
 
 		<div class="card-order-body">
-			<imgText :img-text-data="orderData"></imgText>
+			<imgText :img-text-data="cardOrderData.orderData"></imgText>
 			<div class="order-sums">
-				<div class="date">{{ date }}</div>
+				<div class="date">{{ cardOrderData.orderData.date }}</div>
 				<div class="sums">
-					共{{ sums.num }}件商品，实付款<span>{{ sums.value }}</span>
+					共{{ cardOrderData.orderData.num }}件商品，实付款<span>{{ cardOrderData.orderData.value }}</span>
 				</div>
 			</div>
 		</div>
@@ -27,26 +29,32 @@
 
 <script type="text/babel">
 	import imgText from 'components/common/img-text/img-text'
-	import img1 from 'assets/img/shop-cart.jpg'
 
 	export default {
 		components: {
 			imgText
 		},
+		props: ['cardOrderData'],
 		data () {
 			return {
-				cardOrderData: {
-					title: '',
-				},
-				orderData: {
-					imgPath: img1,
-					title: '汉字思维大礼包(20个故事)'
-				},
-				date: '2016-03-01',
-				sums: {
-					value: '￥30.00',
-					num: 1
-				}
+				hide: false
+				// cardOrderData: {
+				// 	title: '',
+				// 	deleteBtn: true
+				// 	orderData: {
+				// 		imgPath: img1,
+				// 		title: '汉字思维大礼包(20个故事)',
+				// 		date: '2016-03-01',
+				// 		value: '￥30.00',
+				// 		num: 1
+				// 	}
+				// },
+			}
+		},
+		methods: {
+			deleteCard () {
+				this.hide = true
+				this.$emit("on-delete")
 			}
 		}
 	}
@@ -60,6 +68,10 @@
 		margin-bottom: $marginBottom;
 		@include font-dpr($font);
 		border-bottom: 1px solid $colorLine;
+
+		&.hide {
+			display: none;
+		}
 	}
 
 	.card-order-header {
@@ -67,7 +79,7 @@
 		line-height: px2em(80);
 		background-color: $colorBgWhite;
 		border-bottom: 1px solid $colorLine;
-
+	
 		label {
 			border-left: px2em(4) solid #ec5a35;
 			padding-left: px2em(15);
@@ -75,6 +87,11 @@
 
 		.btn {
 			float: right;
+		}
+
+		.icon {
+			float: right;
+			margin-top: px2em(20);
 		}
 	}
 
@@ -87,12 +104,14 @@
 		
 		.date {
 			float: left;
+			color: $colorTime;
 		}
 
 		.sums {
 			float: right;
 
 			span {
+				margin-left: px2em(15);
 				color: $colorTitleRed;
 			}
 		}

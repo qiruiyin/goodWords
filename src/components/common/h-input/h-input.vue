@@ -4,7 +4,7 @@
 		<template v-if="type == 'password'">
 			<input 
 				type="password"
-				:class="inputClasses"
+				:class="[inputClasses, {'input-icon': icon}]"
 				:placeholder="placeholder"
 				:disabled="disabled"
 				:maxlength="maxlength"
@@ -16,7 +16,7 @@
 		<template v-if="type == 'number'">
 			<input 
 				type="number"
-				:class="inputClasses"
+				:class="[inputClasses, {'input-icon': icon}]"
 				:placeholder="placeholder"
 				:disabled="disabled"
 				:maxlength="maxlength"
@@ -28,7 +28,7 @@
 		<template v-else>
 			<input 
 				type="text"
-				:class="inputClasses"
+				:class="[inputClasses, {'input-icon': icon}]"
 				:placeholder="placeholder"
 				:disabled="disabled"
 				:maxlength="maxlength"
@@ -104,9 +104,10 @@
 	.input {
 		position: relative;
 		width: 100%;
-		line-height: $inputH;
+		height: $inputH;
 		@include font-dpr($font);
 		color: $colorTitleBlack;
+		background-color: $colorBgWhite;
 	}
 
 	label {
@@ -114,16 +115,23 @@
 		top: 0;
 		left: 0;
 		width: $labelW;
+		line-height: $inputH;
 		text-align: left;
 		text-indent: $paddingLeft;
 	}
 
 	input {
 		width: 100%;
+		padding: px2em(40) 0;
+		padding-right: $paddingRight;
 		padding-left: $labelW;
-		line-height: $inputH;
+		// line-height: $inputH;
 		border: 0;
 		border-bottom: px2em(2) solid $colorLine;
+
+		&.input-icon {
+			padding-right: $paddingRight + px2em(50);
+		}
 	}
 	
 	.icon {

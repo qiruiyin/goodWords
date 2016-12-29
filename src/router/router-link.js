@@ -128,6 +128,15 @@ const routes = [
 				title: '新增收货地址'
 			}
 		},{
+			path: '/address-edit',
+			name: 'addressEdit',
+			component:  loadView(loaded => {
+        require(['../modules/address/address-edit.vue'], loaded)
+      }),
+			meta: {
+				title: '编辑收货地址'
+			}
+		},{
 			path: '/my-store',
 			name: 'myStore',
 			component:  loadView(loaded => {

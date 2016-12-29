@@ -6,9 +6,10 @@
 }
 
 body {
-	max-width: $maxWidth;
+	// max-width: $maxWidth;
 	margin: 0 auto;
 	background-color: $colorBg;
+	padding-bottom: px2em(140);
 }
 
 .img {
@@ -18,4 +19,9 @@ body {
 
 .margin-bottom {
 	margin-bottom: $marginBottom;
+}
+
+select {
+	appearance: none;
+	-webkit-appearance: none;
 }

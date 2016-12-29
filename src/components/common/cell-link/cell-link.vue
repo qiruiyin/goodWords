@@ -4,9 +4,9 @@
 
 <template>
 	<router-link :to="{name: cellLinkData.url, params: cellLinkData.params}">
-		<div :class="['cell-link', { 'no-arrow' : cellLinkData.arrow}]">
-			<label :class="{ icon: cellLinkData.labelIcon }"><span :class="cellLinkData.labelIcon"></span>{{ cellLinkData.label }}</label>
-			<span :class="{ icon: cellLinkData.nameIcon }"><span :class="cellLinkData.nameIcon"></span>{{ cellLinkData.name }}</span>
+		<div :class="['cell-link', { 'no-arrow' : cellLinkData.noArrow}]">
+			<label :class="{ icon: cellLinkData.labelIcon }"><span :class="'icon-'+cellLinkData.labelIcon" v-if="cellLinkData.labelIcon"></span>{{ cellLinkData.label }}</label>
+			<span :class="[cellLinkData.nameColor, { icon: cellLinkData.nameIcon }]"><span :class="'icon-'+cellLinkData.nameIcon" v-if="cellLinkData.nameIcon"></span>{{ cellLinkData.name }}</span>
 			<p v-if="cellLinkData.desc != ''">
 				{{ cellLinkData.desc }}
 			</p>
@@ -90,6 +90,7 @@
 	.icon {
 		& > span {
 			float: left;
+			margin-right: px2em(15);
 			display: block;
 		}
 	}
@@ -100,5 +101,13 @@
 
 	p {
 		color: $colorSubText;
+	}
+
+	.gray {
+		color: $colorSubText;
+	}
+
+	.red {
+		color: $colorTitleRed;
 	}
 </style>

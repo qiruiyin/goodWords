@@ -4,11 +4,11 @@
 
 <template>
 	<div>
-		<div class="coupon" v-for="item in couponData">
+		<div class="coupon" v-for="(item, index) in couponData">
 			<div class="coupon-left">
 				<div class="discount">
 					<div class="discount-left">
-						<p>{{ item.unit }}<span>{{ item.discount }}</span></p>
+						<p>{{ item.unit }}<span :class="'active'+item.discount.length">{{ item.discount }}</span></p>
 						<div class="discount-msg">{{ item.discountMsg }}</div>
 					</div>
 
@@ -81,19 +81,25 @@
 	}
 
 	.discount {
+		color: $colorTitleRed;
 		@extend %clearfix;
 	}
 
 	.discount-left {
 		float: left;
 		padding-right: px2em(10);
-		border-right: px2em(2) solid $colorTitleRed;
 	}
+
+	.discount-msg {
+		color: $colorTitleBlack;
+	}
+
 
 	.discount-right {
 		float: left;
 		width: px2em(360);
 		padding-left: px2em(10);
+		border-left: px2em(2) solid $colorTitleRed;
 	}
 
 	.coupon-tips {
@@ -126,6 +132,13 @@
 		span {
 			@include font-dpr(28px);
 			line-height: 1.25;
+
+			&.active3 {
+				@include font-dpr(24px);
+			}
+			&.active4 {
+				@include font-dpr(20px);
+			}
 		}
 	}
 </style>

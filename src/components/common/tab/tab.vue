@@ -54,10 +54,11 @@
 			@include font-dpr($font);
 			line-height: px2em(90);
 			text-align: center;
+			border-bottom: px2em(2) solid $colorLine;
 
 			&.current {
 				color: $colorCurrent;
-				border-bottom: px2em(2) solid $colorCurrent;
+				border-bottom: px2em(6) solid $colorCurrent;
 			}
 		}
 	}

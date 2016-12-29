@@ -18,7 +18,7 @@
 			</div>
 		</div>
 
-		<div class="btn btn-big btn-submit">编辑</div>
+		<router-link class="icon-edit" :to="{name: 'myConsultAdd'}"></router-link>
 	</div>
 </template>
 
@@ -84,32 +84,44 @@
 		}
 
 		&.admin {
+			// min-height: px2em(140);
 			padding: px2em(20) px2em(30);
-			padding-right: px2em(160);
-			
-			&:before {
-				content: "";
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: px2em(140);
-				border-radius: px2em(140);
-				background-color: $colorBg;
-				z-index: 1;
-			}
+			// padding-right: px2em(160);
+			border-radius: px2em(140);
+			background-color: $colorBg;
 
-			&:after {
-				content: "";
-				position: absolute;
-				top: px2em(10);
-				right: px2em(10);
-				width: px2em(120);
-				height: px2em(120);
-				border-radius: px2em(120);
-				background-color: $colorBgWhite;
-				z-index: 1;
-			}
+			// &:before {
+			// 	content: "";
+			// 	position: absolute;
+			// 	top: 0;
+			// 	left: 0;
+			// 	width: 100%;
+			// 	height: px2em(140);
+			// 	border-radius: px2em(140);
+			// 	background-color: $colorBg;
+			// 	z-index: 1;
+			// }
+
+			// &:after {
+			// 	content: "";
+			// 	position: absolute;
+			// 	top: px2em(10);
+			// 	right: px2em(10);
+			// 	width: px2em(120);
+			// 	height: px2em(120);
+			// 	border-radius: px2em(120);
+			// 	background: url("~assets/img/hzz.png") no-repeat;
+			// 	background-position: center;
+			// 	background-color: $colorBgWhite;
+			// 	background-size: auto 80%;
+			// 	z-index: 1;
+			// }
 		}
+	}
+
+	.icon-edit {
+		position: fixed;
+		bottom: px2em(40);
+		right: px2em(40);
 	}
 </style>

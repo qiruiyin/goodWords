@@ -7,6 +7,7 @@
 		<img class="img banner" src="~assets/img/banner.jpg" alt="banner">
 		<card v-for="item in cardDatas" :card-data="item">
 		</card>
+		<card :card-data="cardSimple"></card>
 		<cart></cart>
 	</div>
 </template>
@@ -28,7 +29,7 @@
 				cardDatas: [
 					{
 						imgPath: card1,
-						url: 'courseSimple',
+						url: 'courseSpree',
 						params: { 'courseId': 1 },
 						title: '汉字思维免费礼包（5集）',
 						price: '￥2000.00',
@@ -36,7 +37,7 @@
 						actions: ['zan']
 					},{
 						imgPath: card2,
-						url: 'courseSimple',
+						url: 'courseSpree',
 						params: { 'courseId': 1 },
 						title: '汉字思维免费礼包（5集）',
 						price: '￥2000.00',
@@ -44,14 +45,23 @@
 						actions: ['zan', 'store']
 					},{
 						imgPath: card1,
-						url: 'courseSimple',
+						url: 'courseSpree',
 						params: { 'courseId': 1 },
 						title: '汉字思维免费礼包（5集）',
 						price: '￥2000.00',
 						num: 5,
 						actions: ['zan', 'store', 'cart']
 					}
-				]
+				],
+				cardSimple: {
+					imgPath: card1,
+					url: 'courseSimple',
+					params: { 'courseId': 1 },
+					title: '汉字思维免费礼包（5集）',
+					price: '￥2000.00',
+					num: 4,
+					actions: ['zan']
+				}
 			}
 		}
 	}

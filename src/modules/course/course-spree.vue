@@ -43,8 +43,8 @@
 					params: '',
 					title: '汉字思维免费礼包（5集）',
 					price: '￥2000.00',
-					num: 4,
-					actions: []
+					num: 0,
+					actions: ['zan', 'store']
 				},
 				timeChoose: [
 					{

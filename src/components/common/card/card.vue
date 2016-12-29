@@ -13,7 +13,7 @@
 			<h3>{{ cardData.title }}</h3>
 			<div v-if="cardData.price" class="price">{{ cardData.price }}<span> x {{ cardData.num }}集</span></div>
 			<ul class="actions" v-if="cardData.actions">
-				<li :class="item.num > 0 ? 'icon-'+item.value : 'icon-'+item.value+'_active'" v-for="(item, index) in filterActions" @click="setActionNums(index)">
+				<li :class="item.num > 0 ? 'icon-'+item.value+'_active' : 'icon-'+item.value" v-for="(item, index) in filterActions" @click="setActionNums(index)">
 					{{ item.name }}
 				</li>
 			</ul>

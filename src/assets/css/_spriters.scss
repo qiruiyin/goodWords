@@ -13,7 +13,17 @@ $icon: search_icon, // 搜索
 			cart_big, // 悬浮的购物车
 			right, // 对
 			wrong, // 错
-			delete, //清除输入框
+			delete, // 清除输入框
+			trash, // 删除
+			order, // 订单
+			youhuiquan, // 优惠券
+			dizhi, // 地址
+			wodeshoucang, // 我的收藏
+			wodezixun, // 我的咨询
+			weixin, // 用在微信支付
+			check_yuan, // check
+			uncheck_yuan, // uncheck
+			edit, // 悬浮编辑
 			discount_coupon; // 优惠券背景
 
 @each $iconName in $icon {

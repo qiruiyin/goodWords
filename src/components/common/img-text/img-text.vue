@@ -2,8 +2,8 @@
 	图文混排 
  -->
 <template>
-	<div class="img-text">
-		<slot name="check"></slot>
+	<div :class="['img-text', {'img-text-check': imgTextData.hasCheck}]" @click="setCheck">
+		<div v-if="imgTextData.hasCheck" :class="['checkbox', imgTextData.check ? 'icon-check_yuan': 'icon-uncheck_yuan']"></div>
 		<img :src="imgTextData.imgPath" alt="图片">
 		<div class="img-text-content">
 			<p class="title">{{ imgTextData.title }}</p>
@@ -23,6 +23,12 @@
 			return {
 
 			}
+		},
+		methods: {
+			setCheck () {
+				this.imgTextData.check = !this.imgTextData.check
+				this.$emit('on-check', this.imgTextData.check)
+			}
 		}
 	}
 </script>
@@ -34,10 +40,15 @@
 	$imgTextPadding: px2em(30);
 
 	.img-text {
+		position: relative;
 		padding: $imgTextPadding $paddingRight $imgTextPadding $paddingLeft;
 		background-color: $colorWhite;
 		border-bottom: 1px solid $colorLine;
 		display: flex;
+
+		&.img-text-check {
+			padding-left: px2em(80);
+		}
 
 		img {
 			width: px2em(130);
@@ -65,4 +76,12 @@
 			}
 		}
 	}
+	
+	.checkbox {
+		position: absolute;
+		top: 50%;
+		left: $paddingLeft;
+		margin-top: - px2em(17);
+	}
+
 </style>

@@ -1,5 +1,5 @@
 <!-- 
- 汉字思维课
+ 汉字思维单集
  -->
 
 <template>
@@ -28,28 +28,25 @@
 				cardDatas: [
 					{
 						imgPath: card1,
-						url: 'courseSpree',
-						params: {},
-						title: '汉字思维免费课',
-						price: '￥2000.00',
-						num: 4,
-						actions: ['zan', 'store', 'cart']
+						url: 'myCourseDetail',
+						params: {
+							courseId: 1
+						},
+						title: '盘古开天第1集',
 					},{
 						imgPath: card2,
-						url: 'courseSpree',
-						params: {},
-						title: '汉字思维免费礼包（5集）',
-						price: '￥2000.00',
-						num: 5,
-						actions: ['zan', 'store', 'cart']
+						url: 'myCourseDetail',
+						params: {
+							courseId: 1
+						},
+						title: '盘古开天第1集',
 					},{
 						imgPath: card1,
-						url: 'courseSpree',
-						params: {},
-						title: '汉字思维免费礼包（5集）',
-						price: '￥2000.00',
-						num: 5,
-						actions: ['zan', 'store', 'cart']
+						url: 'myCourseDetail',
+						params: {
+							courseId: 1
+						},
+						title: '盘古开天第1集',
 					}
 				]
 			}

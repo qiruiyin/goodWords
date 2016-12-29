@@ -3,9 +3,10 @@
  -->
 <template>
 	<div class="shop-cart">
-		<imgText :img-text-data="item" v-for="item in cartDatas"></imgText>
+		<imgText :ref="'imgText'+index" :img-text-data="item" v-for="(item, index) in cartDatas">
+		</imgText>
 		<div class="btns">
-			<div class="select-all">全选</div>
+			<div class="select-all" @click="selectAll">全选</div>
 			<div class="delete">删除</div>
 			<div class="next" @click="next">下一步</div>
 		</div>
@@ -27,17 +28,23 @@
 						imgPath: img1,
 						title: '汉字思维大礼包',
 						price: '￥2000.00',
-						num: 5
+						num: 5,
+						hasCheck: true,
+						check: true
 					},{
 						imgPath: img1,
 						title: '汉字思维大礼包',
 						price: '￥2000.00',
-						num: 5
+						num: 5,
+						hasCheck: true,
+						check: false
 					},{
 						imgPath: img1,
 						title: '汉字思维大礼包',
 						price: '￥2000.00',
-						num: 5
+						num: 5,
+						hasCheck: true,
+						check: false
 					}
 				]
 			}
@@ -45,6 +52,11 @@
 		methods: {
 			next () {
 				this.$router.push({name: 'confirmOrder'});
+			},
+			selectAll () {
+				this.cartDatas.map(function(elem) {
+					elem.check = true;
+				})
 			}
 		}
 	}

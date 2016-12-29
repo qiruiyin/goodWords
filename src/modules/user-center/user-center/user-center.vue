@@ -38,20 +38,22 @@
 						},{
 							url: 'coupon',
 							label: '优惠券管理',
-							labelIcon: 'order',
+							labelIcon: 'youhuiquan',
 							value: ''
 						},{
 							url: 'address',
 							label: '地址管理',
-							labelIcon: 'order',
+							labelIcon: 'dizhi',
 							value: ''
 						},{
+							url: 'myStore',
 							label: '我的收藏',
-							labelIcon: 'order',
+							labelIcon: 'wodeshoucang',
 							value: ''
 						},{
+							url: 'myConsult',
 							label: '我的咨询',
-							labelIcon: 'order',
+							labelIcon: 'wodezixun',
 							value: ''
 						}
 					]

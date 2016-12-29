@@ -1,4 +1,4 @@
-import 'assets/js/lib-flexible-master/build/flexible_css.debug.js'
+// import 'assets/js/lib-flexible-master/build/flexible_css.debug.js'
 import 'assets/js/lib-flexible-master/build/flexible.debug.js'
 
 import Vue from 'vue'

@@ -27,3 +27,10 @@ $fontTitle: 14px; //28px; //标题 苹方中等
 $font: 14px; //28px; //正文标题 苹方常规
 $fontAbs: 13px; //26px; //摘要/人名 苹方常规
 $fontLabel: 12px; //24px; //标签/辅助性文字 苹方常规
+
+// input select 高度
+$inputHeight: px2em(90);
+$selectHeight: $inputHeight;
+
+// 圆角
+$borderRadius: px2em(10);

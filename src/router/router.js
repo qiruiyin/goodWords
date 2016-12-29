@@ -14,7 +14,7 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach((to, from, next) => {
   // 设置标题
-  global.document.title = to.meta.title || '好字'
+  global.document.title = to.meta.title || '汉字思维课'
   // 滚动条回到头部
   global.scrollTo(0, 0)
 })

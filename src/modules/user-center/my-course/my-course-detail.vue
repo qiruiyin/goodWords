@@ -16,7 +16,7 @@
 		<div class="practice">
 			<div class="practice-header">相关课程习题</div>
 			<question :question-data="item" :question-index="index + 1" v-for="(item, index) in courseQuestion"></question>
-			<div class="btn">老师评语</div>
+			<div class="btn btn-big">老师评语</div>
 
 			<div class="erweima">
 				<p>扫一扫下方二维码加入我们的课后讨论群</p>
