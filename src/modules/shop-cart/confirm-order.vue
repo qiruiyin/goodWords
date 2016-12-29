@@ -8,7 +8,7 @@
 
 		<div class="msg">
 			<label>留言</label>
-			<input type="text" placeholder="请输入留言" v-model="leaveMsg">
+			<input type="text" placeholder="请输入留言">
 		</div>
 
 		<cellLink class="cell-link-bottom" :cell-link-data="orderDatas.user"></cellLink>
@@ -46,7 +46,9 @@
 				orderDatas: {
 					coupon: {
 						label: '优惠券',
+						labelIcon: 'weixin',
 						name: '满2000减去300',
+						nameIcon: 'weixin',
 						value: '',
 					},
 					user: {
@@ -83,6 +85,7 @@
 		padding: $msgPadding $paddingRight $msgPadding $paddingLeft;
 		background-color: $colorBgWhite;
 		display: flex;
+    border-bottom: 1px solid $colorLine;
 
 		label {
 			width: px2em(100);

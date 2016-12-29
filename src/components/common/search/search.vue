@@ -14,10 +14,10 @@
 		</div>
 		<div class="search-input">
 			<input type="text" :placeholder="input.placeholder">
-			<div class="search-btn"></div>
+			<div class="search-btn icon-search_icon"></div>
 		</div>
 		<div class="menu">
-			<div class="menu-btn" @click="setMenu"></div>
+			<div class="menu-btn icon-book" @click="setMenu()"></div>
 			<ul v-show="showMenuList" class="menu-list">
 				<li v-for="item in menuList">
 					{{ item.name }}
@@ -161,7 +161,6 @@
 			position: absolute;
 			top: px2em(10);
 			right: px2em(20);
-			@include img-dpr(".icon-search_icon");
 		}
 	}
 	.menu {
@@ -170,7 +169,6 @@
 
 		.menu-btn {
 			float: right;
-			@include img-dpr(".icon-book");
 		}
 
 		.menu-list {

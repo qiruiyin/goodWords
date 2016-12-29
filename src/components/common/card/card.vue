@@ -12,9 +12,15 @@
 		<div class="card-body">
 			<h3>{{ cardData.title }}</h3>
 			<div v-if="cardData.price" class="price">{{ cardData.price }}<span> x {{ cardData.num }}集</span></div>
-			<ul class="actions">
-				<li :class="[item.value, {'active' : item.num > 0}]" v-for="(item, index) in filterActions" @click="setActionNums(index)">
+			<ul class="actions" v-if="cardData.actions">
+				<li :class="item.num > 0 ? 'icon-'+item.value : 'icon-'+item.value+'_active'" v-for="(item, index) in filterActions" @click="setActionNums(index)">
 					{{ item.name }}
+				</li>
+			</ul>
+
+			<ul class="status" v-if="cardData.status">
+				<li :class="[!item.choosed ? 'icon-'+item.value : 'active icon-'+item.value+'_active']" v-for="(item, index) in filterStatus">
+					已{{ item.choosed ? item.name : item.nameFalse }}
 				</li>
 			</ul>
 		</div>
@@ -44,6 +50,13 @@
 						choosed: false,
 						num: 0
 					}
+				],
+				status: [
+					{
+						name: '收藏',
+						nameFalse: '取消',
+						value: 'store'
+					}
 				]
 			}
 		},
@@ -53,6 +66,18 @@
 				return this.actions.filter(function(elem, index) {
 					return actions.indexOf(elem.value) != -1
 				})
+			},
+			filterStatus () {
+				let cardDataStatus = this.cardData.status || []
+				let status = this.status
+				cardDataStatus.map(function(elem, index){
+					for(let i = 0; i < status.length; i++) {
+						if (elem.value == status[i].value) {
+							elem = Object.assign(elem, status[i]);		
+						}
+					} 
+				})
+				return cardDataStatus
 			}
 		},
 		methods: {
@@ -96,9 +121,9 @@
 		}
 	}
 
-	.actions {
+	.actions, .status {
 		position: absolute;
-		top: px2em(20);
+		top: px2em(60);
 		right: $paddingRight;
 		@include font-dpr($fontLabel);
 
@@ -110,35 +135,21 @@
 			display: block;
 			text-align: center;
 			color: $colorTips;
+		}
+	}
 
-			&:before {
-				content: "";
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0;
-				margin: 0 auto;
-				@include img-dpr(".icon-zan");
+	.status {
+		top: px2em(100);
 
-				&.store {
-					@include img-dpr(".icon-store");
-				}
-				&.cart {
-					@include img-dpr(".icon-cart");
-				}
-			}
+		li {
+			width: px2em(140);
+			padding-top: 0;
+			padding-left: px2em(40);
+			line-height: px2em(50);
+			background-position: left !important;
 
 			&.active {
-				&:before {
-					@include img-dpr(".icon-zan_active")
-
-					&.store {
-						@include img-dpr(".icon-store_active");
-					}
-					&.cart {
-						@include img-dpr(".icon-cart_active");
-					}		
-				}
+				color: $colorTitleRed;
 			}
 		}
 	}

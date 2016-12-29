@@ -31,24 +31,31 @@
 					name: '西斯克里夫',
 					msgs: [
 						{
+							url: 'myOrder',
 							label: '我的订单',
+							labelIcon: 'order',
 							value: ''
 						},{
+							url: 'coupon',
 							label: '优惠券管理',
+							labelIcon: 'order',
 							value: ''
 						},{
+							url: 'address',
 							label: '地址管理',
+							labelIcon: 'order',
 							value: ''
 						},{
 							label: '我的收藏',
+							labelIcon: 'order',
 							value: ''
 						},{
 							label: '我的咨询',
+							labelIcon: 'order',
 							value: ''
 						}
 					]
 				},
-
 			}
 		}
 	}

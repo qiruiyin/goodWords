@@ -82,6 +82,78 @@ const routes = [
 			meta: {
 				title: '用户中心'
 			}
+		},{
+			path: '/my-order',
+			name: 'myOrder',
+			component:  loadView(loaded => {
+        require(['../modules/user-center/my-order/my-order.vue'], loaded)
+      }),
+			meta: {
+				title: '我的订单'
+			}
+		},{
+			path: '/my-order-detail/:orderId',
+			name: 'myOrderDetail',
+			component:  loadView(loaded => {
+        require(['../modules/user-center/my-order/my-order-detail.vue'], loaded)
+      }),
+			meta: {
+				title: '我的订单'
+			}
+		},{
+			path: '/coupon',
+			name: 'coupon',
+			component:  loadView(loaded => {
+        require(['../modules/coupon/coupon.vue'], loaded)
+      }),
+			meta: {
+				title: '优惠券'
+			}
+		},{
+			path: '/address',
+			name: 'address',
+			component:  loadView(loaded => {
+        require(['../modules/address/address.vue'], loaded)
+      }),
+			meta: {
+				title: '地址管理'
+			}
+		},{
+			path: '/address-add',
+			name: 'addressAdd',
+			component:  loadView(loaded => {
+        require(['../modules/address/address-add.vue'], loaded)
+      }),
+			meta: {
+				title: '新增收货地址'
+			}
+		},{
+			path: '/my-store',
+			name: 'myStore',
+			component:  loadView(loaded => {
+        require(['../modules/user-center/my-store/my-store.vue'], loaded)
+      }),
+			meta: {
+				title: '我的收藏'
+			}
+		},{
+			path: '/my-consult',
+			name: 'myConsult',
+			component:  loadView(loaded => {
+        require(['../modules/user-center/my-consult/my-consult.vue'], loaded)
+      }),
+			meta: {
+				title: '我的咨询'
+			}
+		},{
+			path: '/my-consult-add',
+			name: 'myConsultAdd',
+			component:  loadView(loaded => {
+        require(['../modules/user-center/my-consult/my-consult-add.vue'], loaded)
+      }),
+			meta: {
+				title: '我要咨询'
+			}
 		}
 	]
 

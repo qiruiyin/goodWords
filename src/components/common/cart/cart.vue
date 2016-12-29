@@ -3,7 +3,7 @@
 -->
 
 <template>
-	<div class="cart" @click="goShopCart">
+	<div class="cart icon-cart_big" @click="goShopCart">
 		<div v-if="cartNum < 100" :class="['cart-num', { 'hide-num': cartNum <= 0 }]">{{ cartNum }}</div>
 		<div v-else>
 			<div class="cart-num ellipsis">99+</div>
@@ -42,7 +42,6 @@
 		position: fixed;
 		bottom: px2em(50);
 		right: px2em(50);
-		@include img-dpr(".icon-cart_big");
 	}
 
 	.cart-num {

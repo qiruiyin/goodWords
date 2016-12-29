@@ -7,7 +7,7 @@
 		<div class="label">
 			<span>{{ questionIndex }}</span>
 			<label>{{ questionData.label }}</label>
-			<div v-if="questionData.result" :class="['icon', {'icon-error': questionData.selected != questionData.rightOptions}]"></div>
+			<div v-if="questionData.result" :class="['icon', questionData.selected != questionData.rightOptions ? 'icon-error':'icon-right']"></div>
 		</div>
 		<ul class="options">
 			<li :class="{selected: index == questionData.selected}" v-for="(item, index) in questionData.options" @click="setSelected(index)">
@@ -73,11 +73,6 @@
 
 		.icon {
 			float: right;
-			@include img-dpr('.icon-right');
-
-			&.icon-error {
-				@include img-dpr('.icon-wrong');
-			}
 		}
 	}
 	

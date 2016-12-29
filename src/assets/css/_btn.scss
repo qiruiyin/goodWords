@@ -1,0 +1,40 @@
+// 按钮
+@import '~lib/sandal/core';
+@import '~assets/css/vars', '~assets/css/functions';
+
+.btn {
+	line-height: px2em(60);
+	padding: 0 px2em(40);
+	border-radius: px2em(4);
+	border: 1px solid $colorLine;
+	background-color: $colorBgWhite;
+	@include font-dpr($font);
+	display: inline-block;
+}
+
+.btns {
+	text-align: right;
+}
+
+.btn-big {
+	margin: 0 auto;
+	margin-top: px2em(30);
+	margin-left: $paddingLeft;
+	margin-right: $paddingRight;
+	line-height: px2em(110);
+	text-align: center;
+	@include font-dpr(20px);
+	letter-spacing: .5em;
+	text-indent: .5em;
+	border-radius: px2em(10);
+	display: block;
+}
+
+.btn-submit {
+	background-color: $colorTitleRed;
+	color: $colorWhite;
+}
+
+// .btn-cancel {
+	
+// }

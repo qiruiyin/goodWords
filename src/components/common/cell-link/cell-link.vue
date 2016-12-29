@@ -3,13 +3,15 @@
  -->
 
 <template>
-	<div class="cell-link">
-		<label>{{ cellLinkData.label }}</label>
-		<span :class="cellLinkData.icon">{{ cellLinkData.name }}</span>
-		<p v-if="cellLinkData.desc != ''">
-			{{ cellLinkData.desc }}
-		</p>
-	</div>
+	<router-link :to="{name: cellLinkData.url, params: cellLinkData.params}">
+		<div :class="['cell-link', { 'no-arrow' : cellLinkData.arrow}]">
+			<label :class="{ icon: cellLinkData.labelIcon }"><span :class="cellLinkData.labelIcon"></span>{{ cellLinkData.label }}</label>
+			<span :class="{ icon: cellLinkData.nameIcon }"><span :class="cellLinkData.nameIcon"></span>{{ cellLinkData.name }}</span>
+			<p v-if="cellLinkData.desc != ''">
+				{{ cellLinkData.desc }}
+			</p>
+		</div>	
+	</router-link>
 </template>
 
 <script type="text/babel">
@@ -34,8 +36,17 @@
 <style lang="scss" scoped>
 	@import '~lib/sandal/core';
 	@import '~assets/css/vars', '~assets/css/functions';
+	@import '~assets/css/spriters';
 
 	$paddingCell: px2em(30);
+
+	a {
+		display: block;
+
+		&:hover {
+	    text-decoration: none;
+		}
+	}
 
 	.cell-link {
 		@extend %clearfix;
@@ -65,6 +76,21 @@
 			border-top: 1px solid $colorLine;
 			border-right: 1px solid $colorLine;
 			transform: rotate(45deg);
+		}
+
+		&.no-arrow {
+			padding-right: $paddingRight;
+			
+			&:after {
+				display: none;
+			}
+		}
+	}
+
+	.icon {
+		& > span {
+			float: left;
+			display: block;
 		}
 	}
 

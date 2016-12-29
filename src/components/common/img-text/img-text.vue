@@ -7,7 +7,10 @@
 		<img :src="imgTextData.imgPath" alt="图片">
 		<div class="img-text-content">
 			<p class="title">{{ imgTextData.title }}</p>
-			<p class="price">{{ imgTextData.price }}<span>x{{ imgTextData.num }}集</span></p>
+			<p class="price" v-if="imgTextData.price">
+				{{ imgTextData.price }}
+				<span v-if="imgTextData.num">x{{ imgTextData.num }}集</span>
+			</p>
 		</div>
 	</div>
 </template>

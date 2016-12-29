@@ -1,9 +1,9 @@
 <!-- 
-	订单支付
+	我要咨询
  -->
 
 <template>
-	<div class="my-order-pay">
+	<div class="my-consult-add">
 		
 	</div>
 </template>
@@ -19,5 +19,7 @@
 </script>
 
 <style lang="scss" scoped>
+	@import '~lib/sandal/core';
+	@import '~assets/css/vars', '~assets/css/functions';
 	
 </style>

@@ -1,5 +1,3 @@
-@import '~assets/css/spriter';
-
 @function px2em($px, $base-font-size: 75px) {
     @if (unitless($px)) {
         // @warn "Assuming #{$px} to be in pixels, attempting to convert it into pixels for you";

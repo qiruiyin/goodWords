@@ -1,0 +1,25 @@
+@import '~lib/sandal/core';
+@import '~assets/css/vars', '~assets/css/functions';
+@import '~assets/css/spriter';
+
+$icon: search_icon, // 搜索
+			book, // 搜索目录
+			zan, // 赞
+			zan_active, // 赞，高亮
+			store, // 收藏
+			store_active, // 收藏，高亮
+			cart, // 购物车
+			cart_active, // 购物车，高亮
+			cart_big, // 悬浮的购物车
+			right, // 对
+			wrong, // 错
+			delete, //清除输入框
+			discount_coupon; // 优惠券背景
+
+@each $iconName in $icon {
+	.icon-#{$iconName} {
+		@include img-dpr('.icon-#{$iconName}');
+		background-repeat: no-repeat !important;
+		background-position: center !important;
+	}
+}
