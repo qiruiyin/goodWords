@@ -46,17 +46,15 @@
 				orderDatas: {
 					coupon: {
 						label: '优惠券',
-						nameIcon: 'weixin',
-						labelIcon: 'weixin',
 						name: '满2000减去300',
-						nameIcon: 'weixin',
 						value: '',
 					},
 					user: {
 						label: '叶良辰',
 						name: '13845675678',
 						value: '',
-						desc: '上海市虹口区广纪路838号B座4楼'
+						desc: '上海市虹口区广纪路838号B座4楼',
+						nameColor: 'gray'
 					},
 					payment: {
 						label: '支付方式',
@@ -87,7 +85,9 @@
 		padding: $msgPadding $paddingRight $msgPadding $paddingLeft;
 		background-color: $colorBgWhite;
 		display: flex;
+    border-top: 1px solid $colorLine;
     border-bottom: 1px solid $colorLine;
+    margin-bottom: $marginBottom;
 
 		label {
 			width: px2em(100);

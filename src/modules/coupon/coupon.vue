@@ -3,7 +3,7 @@
  -->
 
 <template>
-	<div>
+	<div class="coupon-container">
 		<div class="coupon" v-for="(item, index) in couponData">
 			<div class="coupon-left">
 				<div class="discount">
@@ -65,6 +65,10 @@
 	@import '~lib/sandal/core';
 	@import '~assets/css/vars', '~assets/css/functions';
 	
+	.coupon-container {
+		padding-top: $marginBottom;
+	}
+
 	.coupon {
 		display: flex;
 		width: 100%;

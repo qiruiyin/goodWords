@@ -57,7 +57,7 @@
 					imgPath: card1,
 					url: 'courseSimple',
 					params: { 'courseId': 1 },
-					title: '汉字思维免费礼包（5集）',
+					title: '汉字思维课单集课程',
 					price: '￥2000.00',
 					num: 4,
 					actions: ['zan']

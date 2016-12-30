@@ -96,7 +96,7 @@
 		margin-bottom: $marginBottom;
 
 		&:before, &:after {
-			content: "";
+			// content: "";
 			position: absolute;
 			left: $paddingLeft;
 			bottom: $searchPaddingBottom;
@@ -134,12 +134,14 @@
 	.search-label-list {
 		position: absolute;
 		top: px2em(50);
-		width: 100%;
-		line-height: 1.75;
+		left: - $paddingLeft;
+		width: px2em(200);
+		line-height: px2em(80);
 		background: $searchLabelBg;
 		
 		li {
-			border: 1px solid $searchColor;
+			border: 1px solid $colorLine;
+			border-right: 0;
 			border-top: 0;
 		}
 	}

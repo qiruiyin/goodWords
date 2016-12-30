@@ -46,6 +46,14 @@
 		&:hover {
 	    text-decoration: none;
 		}
+
+		&.cell-link-bottom {
+			margin-bottom: $marginBottom;
+
+			.cell-link {
+				border-top: 1px solid $colorLine;
+			}
+		}
 	}
 
 	.cell-link {
@@ -59,11 +67,6 @@
 		line-height: 1.5;
 		@include font-dpr($fontLabel);
 		color: $colorTitle;
-
-		&.cell-link-bottom {
-			margin-bottom: $marginBottom;
-			border-top: 1px solid $colorLine;
-		}
 		
 		&:after {
 			content: "";
