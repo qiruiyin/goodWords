@@ -27,25 +27,25 @@
 				cardDatas: [
 					{
 						imgPath: card1,
-						url: 'myCourseDetail',
+						url: 'myCourse',
 						params: {
-							courseId: 1
+							storyId: 1
 						},
-						title: '盘古开天第1集',
+						title: '盘古开天',
 					},{
 						imgPath: card2,
-						url: 'myCourseDetail',
+						url: 'myCourse',
 						params: {
-							courseId: 1
+							storyId: 2
 						},
-						title: '盘古开天第1集',
+						title: '女娲造人',
 					},{
 						imgPath: card1,
-						url: 'myCourseDetail',
+						url: 'myCourse',
 						params: {
-							courseId: 1
+							storyId: 3
 						},
-						title: '盘古开天第1集',
+						title: '伏羲结网',
 					}
 				]
 			}

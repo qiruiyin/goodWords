@@ -20,7 +20,7 @@
 				</div>
 				<div class="coupon-tips">{{ item.tips }}</div>
 			</div>
-			<div class="coupon-right">优惠券</div>
+			<div class="coupon-right"></div>
 		</div>
 	</div>
 </template>

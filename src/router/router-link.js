@@ -56,7 +56,16 @@ const routes = [
 				title: '确认订单'
 			}
 		},{
-			path: '/my-course',
+			path: '/my-story',
+			name: 'myStory',
+			component:  loadView(loaded => {
+        require(['../modules/user-center/my-story/my-story.vue'], loaded)
+      }),
+			meta: {
+				title: '我的故事'
+			}
+		},{
+			path: '/my-course/:storyId',
 			name: 'myCourse',
 			component:  loadView(loaded => {
         require(['../modules/user-center/my-course/my-course.vue'], loaded)

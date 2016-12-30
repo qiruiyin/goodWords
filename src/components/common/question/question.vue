@@ -90,6 +90,7 @@
 				left: 0;
 				width: px2em(40);
 				height: px2em(40);
+				line-height: px2em(40);
 				text-align: center;
 				color: $colorTitleRed;
 				border: 1px solid $colorTitleRed;
