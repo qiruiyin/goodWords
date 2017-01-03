@@ -107,15 +107,15 @@
 	}
 
 	.coupon-tips {
-		padding-right: px2em(30);
+		padding-right: px2em(80);
 		margin-top: px2em(10);
 		@include font-dpr($fontLabel);
 		color: $colorTips;
 	}
 
-	[data-dpr="3"] .coupon-tips {
-		padding-right: px2em(40);
-	}
+	// [data-dpr="3"] .coupon-tips {
+	// 	// padding-right: px2em(100);
+	// }
 
 	[data-dpr="2"] .coupon-tips {
 		font-size: 20px;

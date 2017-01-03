@@ -40,6 +40,7 @@
 				courseData: {
 					imgPath: img1,
 					title: '汉字思维大礼包',
+					version: '18分钟版',
 					price: '￥2000.00',
 					num: 5
 				},

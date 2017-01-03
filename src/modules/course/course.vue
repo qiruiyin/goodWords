@@ -34,7 +34,7 @@
 						title: '汉字思维免费礼包（5集）',
 						price: '￥2000.00',
 						num: 4,
-						actions: ['zan']
+						actions: ['zan', 'store', 'cart']
 					},{
 						imgPath: card2,
 						url: 'courseSpree',
@@ -42,7 +42,7 @@
 						title: '汉字思维免费礼包（5集）',
 						price: '￥2000.00',
 						num: 5,
-						actions: ['zan', 'store']
+						actions: ['zan', 'store', 'cart']
 					},{
 						imgPath: card1,
 						url: 'courseSpree',
@@ -60,7 +60,7 @@
 					title: '汉字思维课单集课程',
 					price: '￥2000.00',
 					num: 4,
-					actions: ['zan']
+					actions: ['zan', 'store', 'cart']
 				}
 			}
 		}

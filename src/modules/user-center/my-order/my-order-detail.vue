@@ -21,7 +21,7 @@
 			<cell-link :cell-link-data="orderData.paid" v-if="orderData.status == '已支付'"></cell-link>
 			
 			<div class="footer-btn" v-if="orderData.status != '已支付'">
-				<div class="delete"><div class="icon-trash"></div>删除</div>
+				<div class="icon"><div class="icon-trash"></div>删除</div>
 				<div class="submit">支付</div>
 			</div>
 		</div>
@@ -42,7 +42,7 @@
 			return {
 				orderData: {
 					number: '123214124',
-					status: '已支付',
+					status: '待支付',
 					userInfo: {
 						url: 'address',
 						label: '叶良辰', // 左侧名字 
@@ -55,14 +55,17 @@
 						{
 							imgPath: img1,
 							title: '汉字思维大礼包',
+							version: '18分钟版',
 							price: '￥2000.00'
 						},{
 							imgPath: img1,
 							title: '汉字思维大礼包',
+							version: '18分钟版',
 							price: '￥2000.00'
 						},{
 							imgPath: img1,
 							title: '汉字思维大礼包',
+							version: '18分钟版',
 							price: '￥2000.00'
 						}
 					],
@@ -142,7 +145,7 @@
 		text-align: center;
 		display: flex;
 
-		.delete {
+		.icon {
 			position: relative;
 			width: px2em(220);
 			color: $colorSubText;

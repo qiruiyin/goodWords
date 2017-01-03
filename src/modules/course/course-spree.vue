@@ -20,8 +20,11 @@
 				<card v-for="item in recommendCourse.data" :card-data="item"></card>
 			</div>
 		</div>
-
-		<div class="btn-buy" @click="buy">购买</div>
+		
+		<div class="footer-btn">
+			<div class="icon"><div class="icon-cart_active"></div>加入购物车</div>
+			<div class="submit" @click="buy">立即购买</div>
+		</div>
 	</div>
 </template>
 
@@ -43,14 +46,14 @@
 					params: '',
 					title: '汉字思维免费礼包（5集）',
 					price: '￥2000.00',
-					num: 0,
-					actions: ['zan', 'store']
+					num: 5,
+					actions: ['zan', 'store', 'cart']
 				},
 				timeChoose: [
 					{
-						name: '13分钟',
+						name: '大朋友',
 					},{
-						name: '18分钟',
+						name: '小朋友',
 					}
 				],
 				timeCurrent: -1,
@@ -138,17 +141,48 @@
 		}
 	}
 
-	.btn-buy {
+	// .btn-buy {
+	// 	position: fixed;
+	// 	left: 0;
+	// 	right: 0;
+	// 	bottom: 0;
+	// 	width: 100%;
+	// 	height: px2em(110);
+	// 	line-height: px2em(110);
+	// 	background-color: $btnBg;
+	// 	text-align: center;
+	// 	@include font-dpr($font);
+	// 	color: $colorWhite;
+	// }
+
+	.footer-btn {
 		position: fixed;
+		bottom: 0;
 		left: 0;
 		right: 0;
-		bottom: 0;
-		width: 100%;
 		height: px2em(110);
 		line-height: px2em(110);
-		background-color: $btnBg;
+		background-color: $colorBgWhite;
 		text-align: center;
-		@include font-dpr($font);
-		color: $colorWhite;
+		display: flex;
+
+		.icon {
+			position: relative;
+			width: px2em(320);
+			color: $colorSubText;
+		}
+
+		.submit {
+			flex: 1;
+			color: $colorWhite;
+			background-color: $colorTitleRed;
+		}
+	}
+
+	.icon-cart_active {
+		position: absolute;
+		top: 50%;
+		left: px2em(40);
+		margin-top: - px2em(20); //取自图片大小
 	}
 </style>

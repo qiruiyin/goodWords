@@ -26,6 +26,9 @@ $icon: search_icon, // 搜索
 			edit, // 悬浮编辑
 			audio_start, // 音频开始
 			audio_pause, // 音频暂停
+			dialogbg, // dialog 背景
+			dialogclose, // dialog 关闭
+			result, // 结果
 			discount_coupon; // 优惠券背景
 
 @each $iconName in $icon {

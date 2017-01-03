@@ -31,11 +31,28 @@
 		<div class="practice">
 			<div class="practice-header">相关课程习题</div>
 			<question :question-data="item" :question-index="index + 1" v-for="(item, index) in courseQuestion"></question>
-			<div class="btn btn-big">老师评语</div>
+			<div class="btn btn-big" @click="showDialog">习题测试结果</div>
 
 			<div class="erweima">
-				<p>扫一扫下方二维码加入我们的课后讨论群</p>
+				<p>扫一扫下方二维码加入我们的答疑群</p>
 				<img src="~assets/img/erweima.jpg" alt="erweima">
+			</div>
+		</div>
+
+		<div class="shade" v-if="dialogShow"></div>
+		<div class="dialog icon-dialogbg" v-if="dialogShow">
+			<div class="dislog-header">
+				<div class="title">老师评语</div>
+				<div class="dialog-close icon-dialogclose"></div>
+			</div>
+			<div class="dialog-body">
+				<div class="icon icon-result">80分</div>
+				<p>你没有作弊吧</p>
+				<p>看来我们要更新题库了</p>
+			</div>
+			<div class="dialog-btns btns">
+				<div class="btn" @click="ok">不服来战</div>
+				<div class="btn" @click="ok">我知道了</div>
 			</div>
 		</div>
 	</div>
@@ -110,7 +127,8 @@
 				},
 				audioStatus: false,
 				// audioLength: '',
-				audioProgress: 0
+				audioProgress: 0,
+				dialogShow: false
 			}
 		},
 		methods: {
@@ -132,6 +150,12 @@
 				} else {
 					$audio.pause()
 				}
+			},
+			showDialog () {
+				this.dialogShow = true
+			},
+			ok () {
+				this.dialogShow = false
 			}
 		}
 	}
@@ -142,6 +166,7 @@
 	@import '~assets/css/vars', '~assets/css/functions';
 
 	$colorPink: #fed2c9;
+	// $dialog
 
 	.btn {
 		height: px2em(84);
@@ -274,6 +299,49 @@
 			top: 50%;
 			left: px2em(20);
 			margin-top: - px2em(10); // 取自图片大小
+		}
+	}
+
+	.dialog {
+		position: fixed;
+		top: 20%;
+		left: 0;
+		right: 0;
+		width: px2em(560);
+		height: px2em(680);
+		margin: 0 auto;
+		z-index: 100;
+	}
+	.dislog-header {
+		height: px2em(150);
+		padding-top: px2em(50);
+		line-height: px2em(100);
+		color: #fff;
+		text-align: center;
+		@include font-dpr(26px);
+	}
+	.dialog-close {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	.dialog-body {
+		text-align: center;
+		@include font-dpr($font);
+		
+		.icon {
+			margin: 0 auto;
+			margin-top: px2em(20);
+			padding-top: px2em(190);
+			color: #fff;
+		}
+	}
+	.dialog-btns {
+		text-align: center;
+
+		.btn {
+			margin: px2em(30) px2em(20);
+			border-radius: px2em(20);
 		}
 	}
 </style>

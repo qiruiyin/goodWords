@@ -52,6 +52,7 @@
 					orderData: {
 						imgPath: img1,
 						title: '汉字思维大礼包(20个故事)',
+						version: '18分钟版',
 						date: '2016-03-01',
 						value: '￥30.00',
 						num: '一'

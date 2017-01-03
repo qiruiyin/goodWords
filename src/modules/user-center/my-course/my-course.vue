@@ -38,14 +38,14 @@
 						params: {
 							courseId: 1
 						},
-						title: '盘古开天第1集',
+						title: '盘古开天第2集',
 					},{
 						imgPath: card1,
 						url: 'myCourseDetail',
 						params: {
 							courseId: 1
 						},
-						title: '盘古开天第1集',
+						title: '盘古开天第3集',
 					}
 				]
 			}

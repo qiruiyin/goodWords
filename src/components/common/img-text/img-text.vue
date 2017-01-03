@@ -7,6 +7,7 @@
 		<img :src="imgTextData.imgPath" alt="图片">
 		<div class="img-text-content">
 			<p class="title">{{ imgTextData.title }}</p>
+			<p class="version" v-if="imgTextData.version">{{ imgTextData.version }}</p>
 			<p class="price" v-if="imgTextData.price">
 				{{ imgTextData.price }}
 				<span v-if="imgTextData.num">x{{ imgTextData.num }}集</span>
@@ -28,6 +29,9 @@
 			setCheck () {
 				this.imgTextData.check = !this.imgTextData.check
 				this.$emit('on-check', this.imgTextData.check)
+			},
+			setChecked () {
+				this.imgTextData.check = true
 			}
 		}
 	}
@@ -65,6 +69,14 @@
 
 		.title {
 			color: $colorTitleBlack;
+		}
+
+		.version {
+			padding: 0 px2em(10);
+			border: px2em(2) solid $colorTitleRed;
+			color: $colorTitleRed;
+			border-radius: px2em(6);
+			display: inline-block;
 		}
 
 		.price {

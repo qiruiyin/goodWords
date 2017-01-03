@@ -3,10 +3,13 @@
  -->
 <template>
 	<div class="shop-cart">
-		<imgText :ref="'imgText'+index" :img-text-data="item" v-for="(item, index) in cartDatas">
+		<imgText :ref="'imgText'+index" :img-text-data="item" v-for="(item, index) in cartDatas" @on-check="onCheck">
 		</imgText>
 		<div class="btns">
-			<div class="select-all" @click="selectAll">全选</div>
+			<div class="select-all" @click="selectAll">
+				<div :class="['checkbox', checkAll ? 'icon-check_yuan': 'icon-uncheck_yuan']"></div>
+				全选
+			</div>
 			<div class="delete">删除</div>
 			<div class="next" @click="next">下一步</div>
 		</div>
@@ -27,6 +30,7 @@
 					{
 						imgPath: img1,
 						title: '汉字思维大礼包',
+						version: '18分钟版',
 						price: '￥2000.00',
 						num: 5,
 						hasCheck: true,
@@ -34,6 +38,7 @@
 					},{
 						imgPath: img1,
 						title: '汉字思维大礼包',
+						version: '18分钟版',
 						price: '￥2000.00',
 						num: 5,
 						hasCheck: true,
@@ -41,12 +46,14 @@
 					},{
 						imgPath: img1,
 						title: '汉字思维大礼包',
+						version: '18分钟版',
 						price: '￥2000.00',
 						num: 5,
 						hasCheck: true,
 						check: false
 					}
-				]
+				],
+				checkAll: false
 			}
 		},
 		methods: {
@@ -54,9 +61,21 @@
 				this.$router.push({name: 'confirmOrder'});
 			},
 			selectAll () {
-				this.cartDatas.map(function(elem) {
-					elem.check = true;
-				})
+				this.checkAll = true
+				for (let key in this.$refs) {
+					this.$refs[key][0].setChecked()
+				}
+			},
+			onCheck (val) {
+				let data
+				if (val) {
+					data = this.cartDatas.every(function(elem) {
+						return elem.check == true
+					})
+					if (data) this.checkAll = true
+				} else {
+					this.checkAll = false
+				}
 			}
 		}
 	}
@@ -80,10 +99,6 @@
 		display: flex;
 		text-align: center;
 
-		.select-all {
-			width: px2em(200);
-		}
-
 		.delete {
 			flex: 1;
 			color: $colorTitleRed;
@@ -93,6 +108,17 @@
 			width: px2em(300);
 			color: $colorWhite;
 			background-color: $colorTitleRed;
+		}
+	}
+
+	.select-all {
+		width: px2em(200);
+
+		.checkbox {
+			position: absolute;
+			top: 50%;
+			left: px2em(20);
+			margin-top: - px2em(18);
 		}
 	}
 </style>
