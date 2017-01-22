@@ -48,6 +48,9 @@
 		padding: $imgTextPadding $paddingRight $imgTextPadding $paddingLeft;
 		background-color: $colorWhite;
 		border-bottom: 1px solid $colorLine;
+		display: -webkit-box;
+		display: -moz-box;
+		display: -ms-flexbox;
 		display: flex;
 
 		&.img-text-check {
@@ -62,7 +65,11 @@
 	}
 
 	.img-text-content {
-		flex: 1;
+		-webkit-box-flex: 1;
+	  -moz-box-flex: 1;
+	  -webkit-flex: 1;
+	  -ms-flex: 1;
+	  flex: 1;
 		padding-left: $paddingLeft;
 		@include font-dpr($font);
 		line-height: 2;

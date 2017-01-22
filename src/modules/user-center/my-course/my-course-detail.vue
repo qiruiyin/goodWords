@@ -4,6 +4,7 @@
 
 <template>
 	<div>
+		<div id="id_video_container" style="width:100%; height:auto;"></div>
 		<card :card-data="cardData"></card>
 		
 		<div class="audio">
@@ -16,7 +17,7 @@
 				</div>
 			</div>
 			<audio id="audio" preload="auto">
-			  <source src="http://localhost:8088/static/music.mp3" type="audio/mpeg" />
+			  <source src="http://localhost:8089/static/music.mp3" type="audio/mpeg" />
 			</audio>
 		</div>
 
@@ -59,6 +60,8 @@
 </template>
 
 <script type="text/babel">
+	// require('assets/js/video/h5connect.js');
+
 	import card from 'components/common/card/card.vue';
 	import question from 'components/common/question/question.vue';
 	
@@ -71,7 +74,7 @@
 		data () {
 			return {
 				cardData: {
-					imgPath: courseImg,
+					// imgPath: courseImg,
 					url: '',
 					params: {},
 					title: '盘古开天第1集',
@@ -130,6 +133,31 @@
 				audioProgress: 0,
 				dialogShow: false
 			}
+		},
+		mounted: function () {
+			var player = new qcVideo.Player("id_video_container", {
+		    "width": document.body.clientWidth,
+		    "height": document.body.clientWidth*0.6,
+		    "hide_h5_setting": true,
+		    "third_video": {
+			    "urls":{
+	          10 : "http://covteam.u.qiniudn.com/oceans.mp4"//演示地址，请替换实际地址
+	        }
+			  }
+			})
+		},
+		ready () {
+			console.log(222)
+			console.log(1, qcVideo)
+			var player = new qcVideo.Player("id_video_container", {
+		    "width": 640,
+		    "height": 480,
+		    "third_video": {
+			    "urls":{
+	          20 : "http://localhost:8089/audio.mp4"//演示地址，请替换实际地址
+	        }
+			  }
+			})
 		},
 		methods: {
 			setAudio () {

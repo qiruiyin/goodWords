@@ -63,6 +63,9 @@
 					actions: ['zan', 'store', 'cart']
 				}
 			}
+		},
+		ready () {
+			console.log(1, this)
 		}
 	}
 </script>

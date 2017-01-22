@@ -87,6 +87,9 @@
 
 	.search {
 		position: relative;
+		display: -webkit-box;
+		display: -moz-box;
+		display: -ms-flexbox;
 		display: flex;
 		padding: $searchPaddingTop $paddingRight $searchPaddingBottom $paddingLeft;
 		background-color: #fff;
@@ -138,7 +141,8 @@
 		width: px2em(200);
 		line-height: px2em(80);
 		background: $searchLabelBg;
-		
+		z-index: 9;
+
 		li {
 			border: 1px solid $colorLine;
 			border-right: 0;
@@ -148,7 +152,11 @@
 
 	.search-input	{
 		position: relative;
-		flex: 1;
+		-webkit-box-flex: 1;
+	  -moz-box-flex: 1;
+	  -webkit-flex: 1;
+	  -ms-flex: 1;
+	  flex: 1;
 
 		input {
 			width: 100%;
@@ -181,7 +189,8 @@
 			line-height: px2em(80);
 			background: $searchLabelBg;
 			text-align: center;
-	
+			z-index: 9;
+			
 			li {
 				border: 1px solid $colorLine;
 				border-right: 0;

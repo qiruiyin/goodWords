@@ -54,6 +54,9 @@
 		width: 100%;
 		padding: 0 $paddingRight 0 $paddingLeft;
 		line-height: $selectH;
+		display: -webkit-box;
+		display: -moz-box;
+		display: -ms-flexbox;
 		display: flex;
 		background-color: $colorBgWhite;
 		border-bottom: px2em(2) solid $colorLine;
@@ -65,7 +68,11 @@
 	}
 
 	select {
-		flex: 1;
+		-webkit-box-flex: 1;
+	  -moz-box-flex: 1;
+	  -webkit-flex: 1;
+	  -ms-flex: 1;
+	  flex: 1;
 		height: $selectH;
 		margin: 0 auto;
 		border: 0;

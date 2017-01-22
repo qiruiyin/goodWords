@@ -6,8 +6,9 @@
 	<div class="card">
 		<div class="card-header">
 			<router-link :to="{ name: cardData.url, params: cardData.params }">
-				<img class="img" :src="cardData.imgPath" alt="card">
+				<img v-if="cardData.imgPath" class="img" :src="cardData.imgPath" alt="card">
 			</router-link>
+			<div class="card-status" v-if="cardData.cardNew"></div>
 		</div>
 		<div class="card-body">
 			<h3>{{ cardData.title }}</h3>
@@ -94,9 +95,20 @@
 	@import '~assets/css/vars', '~assets/css/functions';
 
 	.card {
+		position: relative;
 		margin-bottom: $marginBottom;
 		@include font-dpr($fontLabel);
 		background: $colorBgWhite;
+	}
+
+	.card-status {
+		position: absolute;
+		top: px2em(20);
+		right: px2em(20);
+		width: px2em(70);
+		height: px2em(70);
+		background: url('~assets/img/spriter/new.png') no-repeat;
+		background-size: 100% 100%;
 	}
 
 	.card-body {

@@ -1,0 +1,10 @@
+分享功能需要 客户申请一下信息
+
+包名：com.ionicframework.myapp956330（可以修改）
+签名：d8247f5a2e0d7b52749d1e862c451898
+
+分别到以下各个开放平台申请appid，添加测试账号
+
+	QQ：腾讯开放平台 http://open.qq.com/
+	微信：微信开放平台 https://open.weixin.qq.com/
+	微博：新浪微博开放平台 http://open.weibo.com/

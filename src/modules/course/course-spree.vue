@@ -22,7 +22,7 @@
 		</div>
 		
 		<div class="footer-btn">
-			<div class="icon"><div class="icon-cart_active"></div>加入购物车</div>
+			<!-- <div class="icon"><div class="icon-cart_active"></div>加入购物车</div> -->
 			<div class="submit" @click="buy">立即购买</div>
 		</div>
 	</div>
@@ -47,7 +47,7 @@
 					title: '汉字思维免费礼包（5集）',
 					price: '￥2000.00',
 					num: 5,
-					actions: ['zan', 'store', 'cart']
+					actions: ['zan', 'store']
 				},
 				timeChoose: [
 					{
@@ -164,13 +164,15 @@
 		line-height: px2em(110);
 		background-color: $colorBgWhite;
 		text-align: center;
+
+		@include font-dpr($font);
 		display: flex;
 
-		.icon {
-			position: relative;
-			width: px2em(320);
-			color: $colorSubText;
-		}
+		// .icon {
+		// 	position: relative;
+		// 	width: px2em(320);
+		// 	color: $colorSubText;
+		// }
 
 		.submit {
 			flex: 1;
@@ -179,10 +181,10 @@
 		}
 	}
 
-	.icon-cart_active {
-		position: absolute;
-		top: 50%;
-		left: px2em(40);
-		margin-top: - px2em(20); //取自图片大小
-	}
+	// .icon-cart_active {
+	// 	position: absolute;
+	// 	top: 50%;
+	// 	left: px2em(40);
+	// 	margin-top: - px2em(20); //取自图片大小
+	// }
 </style>

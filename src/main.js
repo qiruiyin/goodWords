@@ -4,6 +4,7 @@ import 'assets/js/lib-flexible-master/build/flexible.debug.js'
 import Vue from 'vue'
 import App from './App'
 import router from './router/router'
+import store from './store/store'
 
 // require('lib/weui/src/style/weui.less')
 import 'assets/css/common.scss'
