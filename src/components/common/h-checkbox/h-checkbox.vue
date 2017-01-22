@@ -1,7 +1,7 @@
 <template>
 	<div class="checkbox" @click="setValue">
 		<label for="">{{ label }}</label>
-		<div :class="['icon', {'active': value}]" :data-value="value">{{ value ? '是': '否' }}</div>
+		<div :class="['icon', {'active': currentValue}]" :data-value="currentValue">{{ currentValue ? '是': '否' }}</div>
 	</div>
 </template>
 
@@ -16,12 +16,20 @@
 		},
 		data () {
 			return {
-
+				currentValue : this.value
 			}
 		},
 		methods: {
 			setValue (val) {
-				this.value = !this.value
+				this.currentValue = !this.currentValue
+			},
+			setDefaultValue(value){
+				this.currentValue = value;
+			}
+		},
+		watch: {
+			currentValue (val) {
+				this.$emit("setInputValue", val);
 			}
 		}
 	}

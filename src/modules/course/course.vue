@@ -3,12 +3,15 @@
  -->
 <template>
 	<div>
-		<search></search>
-		<img class="img banner" src="~assets/img/banner.jpg" alt="banner">
-		<card v-for="item in cardDatas" :card-data="item">
+		<search myCourse='false'></search>
+		<a :href="bannerUrl" v-if="bannerUrl = ''">
+			<img class="img banner" :src="bannerSrc" alt="banner">
+		</a>
+		<img v-else class="img banner" :src="bannerSrc" alt="banner">
+		
+		<card v-for="item in cardDatas" :card-data="item" @changCartNum="addCartNum">
 		</card>
-		<card :card-data="cardSimple"></card>
-		<cart></cart>
+		<cart ref="cartRef"></cart>
 	</div>
 </template>
 
@@ -26,7 +29,7 @@
 		},
 		data () {
 			return {
-				cardDatas: [
+				/**cardDatas: [
 					{
 						imgPath: card1,
 						url: 'courseSpree',
@@ -61,11 +64,42 @@
 					price: '￥2000.00',
 					num: 4,
 					actions: ['zan', 'store', 'cart']
-				}
+				},
+				**/
+				bannerSrc : '',
+				bannerUrl : '',
+				cardDatas : {},
+				courselistUrl : "course/courseList",
+				bannerPath : "course/getBanner",
+				gridData : {}
 			}
 		},
-		ready () {
-			console.log(1, this)
+		mounted : function(){
+			var vm = this;
+			this.$http.get(this.bannerPath).then(function(response){
+               vm.bannerSrc = response.data.t.bannerPath;
+			   if(response.data.t.bannerUrl){
+					vm.bannerUrl = response.data.t.bannerUrl;
+			   }
+			   
+			})
+			
+			this.$http.get(this.courselistUrl).then(function(response){
+               vm.cardDatas = response.data.t;
+			}); 
+			
+		},
+		methods: {
+			addCartNum(num){
+				 this.$refs.cartRef.addCartNum(num);
+			}
+		},
+		created: function(){
+			if(__page && __page == "myStory"){
+				this.$router.push({name: 'myStory'});
+			}else if(__page && __page == "userCenter"){
+				this.$router.push({name: 'userCenter'});
+			}
 		}
 	}
 </script>

@@ -4,7 +4,7 @@
 
 <template>
 	<router-link :to="{name: cellLinkData.url, params: cellLinkData.params}">
-		<div :class="['cell-link', { 'no-arrow' : cellLinkData.noArrow}]">
+		<div :class="['cell-link', { 'no-arrow' : cellLinkData.noArrow}]" @click="onClick">
 			<label :class="{ icon: cellLinkData.labelIcon }"><span :class="'icon-'+cellLinkData.labelIcon" v-if="cellLinkData.labelIcon"></span>{{ cellLinkData.label }}</label>
 			<span :class="[cellLinkData.nameColor, { icon: cellLinkData.nameIcon }]"><span :class="'icon-'+cellLinkData.nameIcon" v-if="cellLinkData.nameIcon"></span>{{ cellLinkData.name }}</span>
 			<p v-if="cellLinkData.desc != ''">
@@ -28,6 +28,11 @@
 				// 	desc: '上海市虹口区广纪路838号B座4楼', //详情介绍
 				//  icon: '', // 图标（此处未完善，可以设置左右两边的）
 				// }
+			}
+		},
+		methods: {
+			onClick () {
+				this.$emit('on-click');
 			}
 		}
 	}

@@ -6,12 +6,11 @@
 	<div class="question">
 		<div class="label">
 			<span>{{ questionIndex }}</span>
-			<label>{{ questionData.label }}</label>
-			<div v-if="questionData.result" :class="['icon', questionData.selected != questionData.rightOptions ? 'icon-wrong':'icon-right']"></div>
+			<label v-html="questionData.questionDesc"></label>
+			<div v-if="showResult" :class="['icon', selected!= questionData.correctAnswer ? 'icon-wrong':'icon-right']"></div>
 		</div>
 		<ul class="options">
-			<li :class="{selected: index == questionData.selected}" v-for="(item, index) in questionData.options" @click="setSelected(index)">
-				{{ item.name }}
+			<li :class="{selected: item.optionValue == selected}" v-for="(item, index) in questionData.options" @click="setSelected(item.optionValue)" v-html='item.optionName'>
 			</li>
 		</ul>
 	</div>
@@ -19,7 +18,7 @@
 
 <script type="text/babel">
 	export default {
-		props: ['questionData', 'questionIndex'],
+		props: ['questionData', 'questionIndex', 'showResult', 'clear'],
 		data () {
 			return {
 				// questionData: {
@@ -35,16 +34,51 @@
 				// 	rightOptions: 0, // 正确的结果
 				// 	result: true // 是否显示正确与否
 				// }
+				selected: ''
 			}
+		},
+		mounted () {
+			setTimeout(function(){
+				// 图片大小处理
+				let dpr = document.getElementsByTagName('html')[0].dataset.dpr;
+
+				[].map.call(document.querySelectorAll('.question img'), function(elem, index){
+					console.log(elem.style.width, elem.offsetWidth, dpr);
+					elem.style.width = elem.style.width || elem.offsetWidth * dpr + 'px'
+				})
+			}, 1000);
 		},
 		methods: {
 			setSelected (index) {
-				this.questionData.selected = index;
+				if(this.selected  == index){
+					return;
+				}
+				
+				if(this.questionData.correctAnswer == index){
+					this.$emit('increment')
+				}else if(this.questionData.correctAnswer == this.selected){
+					this.$emit('reduce')
+				}
+
+				this.selected  = index;
+			}
+		},
+		watch:{
+			clear(val){
+				this.selected = '';
 			}
 		}
 	}
 </script>
 
+<style lang="scss">
+	@import '~assets/css/vars', '~assets/css/functions';
+	// .question .label {
+	// 	img {
+	// 		height: px2em(42);
+	// 	}
+	// }
+</style>
 <style lang="scss" scoped>
 	@import '~lib/sandal/core';
 	@import '~assets/css/vars', '~assets/css/functions';
@@ -63,8 +97,8 @@
 
 	.label {
 		span {
+			float: left;
 			width: px2em(30);
-			display: inline-block;
 		}
 
 		label {

@@ -4,21 +4,37 @@
 
 <template>
 	<div class="coupon-container">
-		<div class="coupon" v-for="(item, index) in couponData">
-			<div class="coupon-left">
+		<tip  :card-data="couponData"  msg="您暂时没有可用优惠券"></tip>
+		<div class="coupon" v-for="(item, index) in couponData" :style="{height: couponHeight + 'px'}">
+			<div class="coupon-left" v-if="item.couponType == '01'">
 				<div class="discount">
 					<div class="discount-left">
-						<p>{{ item.unit }}<span :class="'active'+item.discount.length">{{ item.discount }}</span></p>
-						<div class="discount-msg">{{ item.discountMsg }}</div>
+						<p>￥<span :class="'active'+item.couponReduce.length">{{ item.couponReduce }}</span></p>
+						<div class="discount-msg" >{{item.couponSummary}}</div>
 					</div>
 
 					<div class="discount-right">
-						<p>{{ item.msg }}</p>
-						<p>优惠券号：{{ item.discountNum }}</p>
-						<p>有效期至：{{ item.time }}</p>
+						<p>购物满{{item.couponFulfil}}元可用</p>
+						<p>优惠券号：{{ item.couponNo}}</p>
+						<p>有效期至：{{ item.couponEndDate}}</p>
 					</div>
 				</div>
-				<div class="coupon-tips">{{ item.tips }}</div>
+				<div class="coupon-tips">{{ item.couponMemo }}</div>
+			</div>
+			<div class="coupon-left" v-if="item.couponType != '01'">
+				<div class="discount">
+					<div class="discount-left">
+						<p>￥<span :class="'active'+item.couponInstead.length">{{ item.couponInstead }}</span></p>
+						<div class="discount-msg" >{{item.couponSummary}}</div>
+					</div>
+
+					<div class="discount-right">
+						<p>最低消费{{item.couponLow}}元可用</p>
+						<p>优惠券号：{{ item.couponNo}}</p>
+						<p>有效期至：{{ item.couponEndDate}}</p>
+					</div>
+				</div>
+				<div class="coupon-tips">{{ item.couponMemo }}</div>
 			</div>
 			<div class="coupon-right"></div>
 		</div>
@@ -26,36 +42,29 @@
 </template>
 
 <script type="text/babel">
+	import tip from 'components/common/card/tip.vue'
+	
 	export default {
+		components: {
+			 tip
+		},
 		data () {
 			return {
-				couponData: [
-					{
-						discount: '20',
-						unit: '￥',
-						msg: '购物满100元可用',
-						discountMsg: '满100减20',
-						discountNum: '383174713294',
-						time: '2016-12-21',
-						tips: '可抵扣好字在微信商城所有商品，不能与其他优惠券同时使用'
-					},{
-						discount: '20',
-						unit: '￥',
-						msg: '购物满100元可用',
-						discountMsg: '满100减20',
-						discountNum: '383174713294',
-						time: '2016-12-21',
-						tips: '可抵扣好字在微信商城所有商品，不能与其他优惠券同时使用'
-					},{
-						discount: '20',
-						unit: '￥',
-						msg: '购物满100元可用',
-						discountMsg: '满100减20',
-						discountNum: '383174713294',
-						time: '2016-12-21',
-						tips: '可抵扣好字在微信商城所有商品，不能与其他优惠券同时使用'
-					}
-				]
+				couponData: [],
+				couponListUrl: 'coupon/couponList'
+			}
+		},
+		mounted : function(){
+			var vm = this;
+			this.$http.get(this.couponListUrl).then(function(response){
+				
+               vm.couponData = response.data.t;
+			  
+			})
+		},
+		computed: {
+			couponHeight () {
+				return document.body.clientWidth * 0.4
 			}
 		}
 	}
@@ -144,5 +153,10 @@
 				@include font-dpr(20px);
 			}
 		}
+	}
+	
+	.no-result{
+	    padding-top: 40px;
+		text-align: center;
 	}
 </style>

@@ -4,17 +4,20 @@
 
 <template>
 	<div class="my-consult">
-		<div class="question" v-for="item in 3">
+		<tip  :card-data="consultList"  msg="您还没有咨询记录"></tip>
+		<div class="question" v-for="item in consultList">
 			<div class="question-header">
-				{{ questionData.title }}
-				<div class="question-time">{{ questionData.date }}</div>
+				{{ item.consultTitle}}
+				<div class="question-time">{{ item.consultDate }}</div>
 			</div>
 			<div class="question-body">
-				<template v-for="item in questionData.answers">
-					<div :class="['question-answer', {admin: item.type == 'admin'}]">
-						<p>{{ item.content }}</p>
-					</div>
-				</template>
+				<div>
+						<p>{{ item.consultContent }}</p>
+				</div>
+				<div v-if='item.consultAnswer != null && item.consultAnswer != ""' class="question-answer admin">
+					<p>{{ item.consultAnswer }}</p>
+				</div>
+				
 			</div>
 		</div>
 
@@ -23,7 +26,12 @@
 </template>
 
 <script type="text/babel">
+	import tip from 'components/common/card/tip.vue'
+	
 	export default {
+		components: {
+			tip
+		},
 		data () {
 			return {
 				questionData: {
@@ -37,8 +45,17 @@
 							content: '亲，您好，您可以使用优惠券购买我们的商品，谢谢。'
 						}
 					]
-				} 
+				},
+				consultList: [],
+				consultListUrl: 'usercenter/counsultList'
 			}
+		},
+		mounted : function(){
+			var vm = this;
+			this.$http.get(this.consultListUrl).then(function(response){
+				vm.consultList = response.data.t;
+				
+			})
 		}
 	}
 </script>
@@ -71,7 +88,9 @@
 	}
 
 	.question-body {
-
+		position: relative;
+		margin-bottom: px2em(30);
+		color: $colorArticle;
 	}
 
 	.question-answer {
@@ -89,6 +108,8 @@
 			// padding-right: px2em(160);
 			border-radius: px2em(140);
 			background-color: $colorBg;
+			color: $colorSubText;
+			margin-top: px2em(30);
 
 			// &:before {
 			// 	content: "";
@@ -123,5 +144,10 @@
 		position: fixed;
 		bottom: px2em(40);
 		right: px2em(40);
+	}
+	
+	.no-result{
+	    padding-top: 40px;
+		text-align: center;
 	}
 </style>

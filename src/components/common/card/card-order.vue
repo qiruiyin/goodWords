@@ -7,16 +7,16 @@
 <template>
 	<div :class="['card-order', {hide: hide}]">
 		<div class="card-order-header">
-			<label>订单号：{{ cardOrderData.title }}</label>
+			<label>订单号：{{ cardOrderData.orderNo }}</label>
 			<div class="icon icon-trash" v-if="cardOrderData.deleteBtn" @click="deleteCard"></div>			
 		</div>
 
 		<div class="card-order-body">
-			<imgText :img-text-data="cardOrderData.orderData"></imgText>
+			<imgText :img-text-data="item"  v-for="item in cardOrderData.detailList"></imgText>
 			<div class="order-sums">
-				<div class="date">{{ cardOrderData.orderData.date }}</div>
+				<div class="date">{{ cardOrderData.orderTime }}</div>
 				<div class="sums">
-					共{{ cardOrderData.orderData.num }}件商品，实付款<span>{{ cardOrderData.orderData.value }}</span>
+					共{{ cardOrderData.goodsCount }}件商品，实付款<span>{{ cardOrderData.orderMoney }}</span>
 				</div>
 			</div>
 		</div>

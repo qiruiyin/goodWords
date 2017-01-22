@@ -6,16 +6,16 @@
 	<div class="card">
 		<div class="card-header">
 			<router-link :to="{ name: cardData.url, params: cardData.params }">
-				<img v-if="cardData.imgPath" class="img" :src="cardData.imgPath" alt="card">
+				<img class="img" :src="cardData.imgPath" alt="card" v-if="cardData.imgPath">
 			</router-link>
-			<div class="card-status" v-if="cardData.cardNew"></div>
+			<div class="card-status" v-if="cardData.goodsIsNew"></div>
 		</div>
 		<div class="card-body">
-			<h3>{{ cardData.title }}</h3>
-			<div v-if="cardData.price" class="price">{{ cardData.price }}<span> x {{ cardData.num }}集</span></div>
+			<h3>{{ cardData.title }} <span v-if='cardData.slogan && showDetail'>&nbsp&nbsp;{{cardData.slogan}}</span></h3>
+			<div v-if="cardData.price" class="price">{{ cardData.price }}<span>  &nbsp; {{ cardData.num }}集</span></div>
 			<ul class="actions" v-if="cardData.actions">
-				<li :class="item.num > 0 ? 'icon-'+item.value+'_active' : 'icon-'+item.value" v-for="(item, index) in filterActions" @click="setActionNums(index)">
-					{{ item.name }}
+				<li :class="item.choosed ? 'icon-'+item.value+'_active active' : 'icon-'+item.value" v-for="(item, index) in cardData.actions" @click="setActionNums(item, cardData)">
+					{{item.choosedNum && item.choosed? item.choosedNum : item.name }}
 				</li>
 			</ul>
 
@@ -30,10 +30,11 @@
 
 <script type="text/babel">
 	export default {
-		props: ['cardData'],
+		props: ['cardData', 'showDetail'],
 		data () {
 			return {
 				cardTitle: "",
+				/**
 				actions: [
 					{
 						name: "点赞",
@@ -52,19 +53,27 @@
 						num: 0
 					}
 				],
+				**/
+				
 				status: [
 					{
 						name: '收藏',
 						nameFalse: '取消',
 						value: 'store'
 					}
-				]
+				],
+				addLikeUrl: 'usercenter/addLike',
+				unLikeUrl: 'usercenter/unLike',
+				addStroeUrl: 'usercenter/addStore',
+				unStoreUrl: 'usercenter/unStore',
+				addShopcartUrl: 'shopcart/addShopcart',
+				unShopcartUrl: 'shopcart/unShopcart'
 			}
 		},
 		computed: {
 			filterActions () {
 				let actions = this.cardData.actions || []
-				return this.actions.filter(function(elem, index) {
+				return this.cardData.actions.filter(function(elem, index) {
 					return actions.indexOf(elem.value) != -1
 				})
 			},
@@ -82,9 +91,54 @@
 			}
 		},
 		methods: {
-			setActionNums(ind) {
-				this.actions[ind].num += this.actions[ind].choosed ? -1 : 1
-				this.actions[ind].choosed = !this.actions[ind].choosed
+			setActionNums(item, course) {
+				var vm = this;
+				//this.actions[ind].num += this.actions[ind].choosed ? -1 : 1
+				
+				if(item.value == 'zan' || item.value == 'store'){
+					if(!item.choosedNum){
+						item.choosedNum = 0;
+					}
+					item.choosedNum += item.choosed ? -1 : 1
+				}
+				
+				item.choosed = !item.choosed
+				if(item.choosed){
+					if(item.value == 'zan'){
+						vm.$http.post(vm.addLikeUrl, course.params)
+							.then((response) => {
+							})
+					}
+					if(item.value == 'store'){
+						vm.$http.post(vm.addStroeUrl, course.params)
+							.then((response) => {
+							})
+					}
+					if(item.value == 'cart'){
+						vm.$http.post(vm.addShopcartUrl, course.params)
+							.then((response) => {
+								this.$emit('changCartNum', 1);
+							})
+					}
+				}else{
+					if(item.value == 'zan'){
+						vm.$http.post(vm.unLikeUrl, course.params)
+							.then((response) => {
+							})
+					}
+					if(item.value == 'store'){
+						vm.$http.post(vm.unStoreUrl, course.params)
+							.then((response) => {
+							})
+					}
+					if(item.value == 'cart'){
+						vm.$http.post(vm.unShopcartUrl, course.params)
+							.then((response) => {
+								this.$emit('changCartNum', -1);
+							})
+					}
+				}
+				
 			}
 		}
 	}
@@ -120,6 +174,10 @@
 		@include font-dpr($font);
 		color: $colorTitleBlack;
 		font-weight: normal;
+		
+		span{
+			color: $colorTitleRed;
+		}
 	}
 
 	.price {
@@ -147,6 +205,12 @@
 			display: block;
 			text-align: center;
 			color: $colorTips;
+		}
+	}
+	
+	.actions {
+		.active {
+			color: $colorTitleRed;
 		}
 	}
 

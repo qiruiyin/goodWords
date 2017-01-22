@@ -1,12 +1,32 @@
-# goodWords
-好字
+# haozizai
+好字在
 
 # 框架选择
-	webpack、vue、vue-router、vuex、weui、sass
+	webpack、vue、vue-router、sass
 
+# 请先安装 node.js
+
+	 npm install -g cnpm --registry=https://registry.npm.taobao.org 用npm安装cnpm并指向国内镜像
+
+	 cnpm install 安装依赖
+
+	 cnpm run dev 运行项目
 
 # 备注
+	
+	bower_components 资源包
 
-	1、所有路由，通过name跳转，虽然多写了一点代码，但是可以避免很多问题（例如传参），同时方便管理
+	build、config 环境配置
 
-	2、
+	node_modules 项目运行依赖
+
+	所有代码都在src目录下
+		assets：静态资源
+		components: 组件
+		modules: 视图
+		router: 路由
+		main.js: 项目入口
+
+	static 前端代码生成地址
+
+	test 测试

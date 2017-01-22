@@ -15,8 +15,10 @@
 	export default {
 		data () {
 			return {
-				cartNum: 1
+				cartNum : 0,
+				cartNumUrl: 'shopcart/getShopcartNum'
 			}
+			
 		},
 		methods: {
 			setCartNum (num) {
@@ -27,7 +29,28 @@
 			},
 			goShopCart () {
 				this.$router.push({name: 'shopCart'});
+			},
+			fetchData(){	
+				var vm = this;
+				this.$http.get(this.cartNumUrl).then(function(response){
+				   vm.cartNum = response.data.t;
+				})
+			},
+			addCartNum(num){
+				this.cartNum = this.cartNum*1 + num*1;
+				if(this.cartNum < 0){
+					this.cartNum = 0;
+				}
 			}
+		},
+		created (){
+			var vm = this;
+			vm.fetchData();
+			/**
+			bus.$on('addCartNum', function (num) {
+			   vm.cartNum += num;
+			})**/
+			
 		}
 	}
 </script>

@@ -10,7 +10,7 @@
 				:maxlength="maxlength"
 				:readonly="readonly"
 				:name="name"
-				v-model="value"
+				v-model="currentValue"
 				>	
 		</template>
 		<template v-if="type == 'number'">
@@ -22,7 +22,7 @@
 				:maxlength="maxlength"
 				:readonly="readonly"
 				:name="name"
-				v-model="value"
+				v-model="currentValue"
 				>	
 		</template>
 		<template v-else>
@@ -34,7 +34,7 @@
 				:maxlength="maxlength"
 				:readonly="readonly"
 				:name="name"
-				v-model="value"
+				v-model="currentValue"
 				>	
 		</template>
 		<div :class="['icon', 'icon-'+icon]" v-if="icon" @click="deleteInput"></div>
@@ -42,6 +42,7 @@
 </template>
 
 <script type="text/babel">
+	
 	export default {
 		props: {
 			wrapClasses: String,
@@ -65,14 +66,11 @@
 			},
 			maxlength: Number,
 			name: String,
-			value: { //这个问题暂时没有理清楚，现在这样做也可以，只是会有vue警告，不符合vue2的思想
-				type: [String, Number],
-        default: ''
-			}
+			value: ''
 		},
 		data () {
 			return {
-				
+				currentValue : this.value
 			}
 		},
 		// computed: {
@@ -88,7 +86,15 @@
 		// },
 		methods: {
 			deleteInput () {
-				this.value = ''
+				this.currentValue = '';
+			},
+			setValue(value){
+				this.currentValue = value;
+			}
+		},
+		watch: {
+			currentValue (val) {
+				this.$emit("setInputValue", val);
 			}
 		}
 	}

@@ -46,17 +46,10 @@
 
 	.tab-header	{
 		background-color: $colorBgWhite;
-		display: -webkit-box;
-		display: -moz-box;
-		display: -ms-flexbox;
 		display: flex;
 
 		& > p {
-			-webkit-box-flex: 1;
-		  -moz-box-flex: 1;
-		  -webkit-flex: 1;
-		  -ms-flex: 1;
-		  flex: 1;
+			flex: 1;
 			color: $colorTitle;
 			@include font-dpr($font);
 			line-height: px2em(90);

@@ -20,7 +20,16 @@ const routes = [
 				title: '汉字思维课'
 			}
 		},{
-			path: '/course-simple/:courseId',
+			path: '/course-story/:courseId',
+			name: 'courseStory',
+			component:  loadView(loaded => {
+			require(['../modules/course/course-story.vue'], loaded)
+		  }),
+			meta: {
+				title: '汉字思维故事集'
+			}
+		},{
+			path: '/course-simple/:courseId/:subForderId',
 			name: 'courseSimple',
 			component:  loadView(loaded => {
         require(['../modules/course/course-simple.vue'], loaded)
@@ -29,7 +38,16 @@ const routes = [
 				title: '汉字思维单集'
 			}
 		},{
-			path: '/course-spree',
+			path: '/course-search/:storyId/:searchType/:searchWord/:myCourse',
+			name: 'courseSearch',
+			component:  loadView(loaded => {
+				require(['../modules/course/course-search.vue'], loaded)
+			 }),
+			meta: {
+				title: '搜索结果'
+			}
+		},{
+			path: '/course-spree/:courseId/:courseType/',
 			name: 'courseSpree',
 			component:  loadView(loaded => {
         require(['../modules/course/course-spree.vue'], loaded)
@@ -47,7 +65,7 @@ const routes = [
 				title: '购物车'
 			}
 		},{
-			path: '/confirm-order',
+			path: '/confirm-order/:orderId',
 			name: 'confirmOrder',
 			component:  loadView(loaded => {
         require(['../modules/shop-cart/confirm-order.vue'], loaded)
@@ -74,7 +92,7 @@ const routes = [
 				title: '我的课程'
 			}
 		},{
-			path: '/my-course-detail/:courseId',
+			path: '/my-course-detail/:lessonId/:versionId',
 			name: 'myCourseDetail',
 			component:  loadView(loaded => {
         require(['../modules/user-center/my-course/my-course-detail.vue'], loaded)
@@ -137,7 +155,7 @@ const routes = [
 				title: '新增收货地址'
 			}
 		},{
-			path: '/address-edit',
+			path: '/address-edit/:addressId',
 			name: 'addressEdit',
 			component:  loadView(loaded => {
         require(['../modules/address/address-edit.vue'], loaded)

@@ -1,16 +1,13 @@
 <template>
 	<div class="course-spree">
-		<card class="spree-card" :card-data="courseData"></card>
+		<card class="spree-card" showDetail="true" :card-data="courseData"></card>
 		<ul class="time-choose">
-			<li :class="{'current': index == timeCurrent}" v-for="(item, index) in timeChoose" @click="setTimeCurrent(index)">{{ item.name }}版</li>
+			<li :class="{'current': item.isDefault}" v-for="(item, index) in timeChoose" @click="setTimeCurrent(item)">{{ item.versionName }}</li>
 		</ul>
 
 		<div class="article">
 			<div class="article-header">{{ courseDesc.title }}</div>
-			<div class="article-body article-body-padding">
-				<template v-for="item in courseDesc.contents">
-					<p>{{ item.content }}</p>
-				</template>
+			<div class="article-body article-body-padding" v-html="courseData.goodsDesc">
 			</div>
 		</div>
 
@@ -22,7 +19,7 @@
 		</div>
 		
 		<div class="footer-btn">
-			<!-- <div class="icon"><div class="icon-cart_active"></div>加入购物车</div> -->
+			<div class="icon"  @click="addShopcart"><div class="icon-cart_active"></div>{{addShopcartButton}}</div>
 			<div class="submit" @click="buy">立即购买</div>
 		</div>
 	</div>
@@ -40,6 +37,22 @@
 		},
 		data () {
 			return {
+				courseDetailUrl: 'course/courseDetail',
+				addShopcartUrl: 'shopcart/addShopcart',
+				buyUrl: 'shopcart/addShopcart',
+				courseId : '',
+				courseType: '',
+				courseData : {},
+				timeChoose : [],
+				timeCurrent : -1,
+				courseDesc : {},
+				versionChecked : {},
+				addShopcartButton: "加入购物车",
+				recommendCourse : {
+					title: '推荐课程',
+					data : []
+				}
+				/**
 				courseData: {
 					imgPath: card1,
 					url: '',
@@ -47,7 +60,7 @@
 					title: '汉字思维免费礼包（5集）',
 					price: '￥2000.00',
 					num: 5,
-					actions: ['zan', 'store']
+					actions: ['zan', 'store', 'cart']
 				},
 				timeChoose: [
 					{
@@ -67,6 +80,7 @@
 						}
 					]
 				},
+
 				recommendCourse: {
 					title: '推荐课程',
 					data: [
@@ -94,16 +108,80 @@
 						}
 					]
 				}
+				**/
 			}
 		},
+		created: function(){
+			var vm = this;
+			vm.fetchData();
+			
+		},
 		methods: {
-			setTimeCurrent (index) {
-				this.timeCurrent = index
+			setTimeCurrent (item) {
+				for(var i=0; i<this.timeChoose.length; i++){
+					if(item == this.timeChoose[i]){
+						item.isDefault = true;
+						this.courseData.price = item.price;
+						this.versionChecked = item;
+					}else{
+						this.timeChoose[i].isDefault = false;
+					}
+					
+				}
+			},
+			fetchData(){
+				this.courseId = this.$route.params.courseId;
+				//console.log('courseId: ' + this.courseId);
+				this.courseType = this.$route.params.courseType;
+				var vm = this;
+				this.$http.get(this.courseDetailUrl, {params:{"courseId" : this.courseId, "courseType": this.courseType}}).then((response)=>{
+				   vm.courseData = response.data.t.courseData;
+				   vm.timeChoose = response.data.t.timeChoose;
+				   vm.recommendCourse.data = response.data.t.recommendCourse;
+				   for(var i=0; i<vm.timeChoose.length; i++){
+						if(vm.timeChoose[i].isDefault){
+						vm.versionChecked = vm.timeChoose[i];
+						}
+					}
+				})
 			},
 			buy () {
 				// 先获取要传递的数据，
-				this.$router.push({name: 'courseSimple', params: {'courseId': 1}})
+				var vm = this;
+				var vm = this;
+				if(!vm.versionChecked || !vm.versionChecked.courseVersionId){
+					layer.open({
+						content: '请选择您要购买的版本'
+						,skin: 'msg'
+						,time: 2 //2秒后自动关闭
+					  });
+					  
+					  return;
+				}
+				vm.$http.post(vm.buyUrl, {"versionId": vm.versionChecked.courseVersionId, "courseId" : vm.courseId, "courseType" : vm.courseType})
+                .then((response) => {
+                    this.$router.push({name: 'shopCart'});
+                })	
+			},
+			addShopcart(){
+				var vm = this;
+				if(!vm.versionChecked || !vm.versionChecked.courseVersionId){
+					layer.open({
+						content: '请选择您要购买的版本'
+						,skin: 'msg'
+						,time: 2 //2秒后自动关闭
+					  });
+					  
+					  return;
+				}
+				
+				this.addShopcartButton="已加入购物车";
+				vm.$http.post(vm.addShopcartUrl, {"versionId": vm.versionChecked.courseVersionId, "courseId" : vm.courseId, "courseType" : vm.courseType})
+				.then((response) => {})
 			}
+		},
+		watch:{
+			  '$route':'fetchData'
 		}
 	}
 </script>
@@ -164,15 +242,15 @@
 		line-height: px2em(110);
 		background-color: $colorBgWhite;
 		text-align: center;
-
-		@include font-dpr($font);
 		display: flex;
+		@include font-dpr($font);
+		z-index: 9;
 
-		// .icon {
-		// 	position: relative;
-		// 	width: px2em(320);
-		// 	color: $colorSubText;
-		// }
+		.icon {
+			position: relative;
+			width: px2em(320);
+			color: $colorSubText;
+		}
 
 		.submit {
 			flex: 1;
@@ -181,10 +259,10 @@
 		}
 	}
 
-	// .icon-cart_active {
-	// 	position: absolute;
-	// 	top: 50%;
-	// 	left: px2em(40);
-	// 	margin-top: - px2em(20); //取自图片大小
-	// }
+	.icon-cart_active {
+		position: absolute;
+		top: 50%;
+		left: px2em(40);
+		margin-top: - px2em(20); //取自图片大小
+	}
 </style>

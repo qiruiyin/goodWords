@@ -4,7 +4,7 @@
 
 <template>
 	<div>
-		<search></search>
+		<search  myCourse='true'></search>
 		<card v-for="item in cardDatas" :card-data="item">
 		</card>
 	</div>
@@ -24,6 +24,7 @@
 		},
 		data () {
 			return {
+				/**
 				cardDatas: [
 					{
 						imgPath: card1,
@@ -35,6 +36,7 @@
 					},{
 						imgPath: card2,
 						url: 'myCourseDetail',
+						cardNew: true,
 						params: {
 							courseId: 1
 						},
@@ -47,8 +49,29 @@
 						},
 						title: '盘古开天第3集',
 					}
-				]
+				],
+				**/
+				
+				cardDatas: [],
+				storyId : '',
+				myLessonlistUrl: 'usercenter/myLessonList'
 			}
+		},
+		created (){
+			var vm = this;
+			vm.fetchData();
+		},
+		methods: {
+			fetchData(){
+				this.storyId = this.$route.params.storyId;
+				var vm = this;
+				this.$http.get(this.myLessonlistUrl, {params:{"storyId" : this.storyId}}).then(function(response){
+				   vm.cardDatas = response.data.t;
+				})
+			}
+		},
+		watch:{
+			  '$route':'fetchData'
 		}
 	}
 </script>
@@ -59,5 +82,10 @@
 
 	.banner {
 		margin-bottom: $marginBottom;
+	}
+	
+	.no-result{
+	    padding-top: 40px;
+		text-align: center;
 	}
 </style>

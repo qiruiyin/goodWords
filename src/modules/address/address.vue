@@ -1,7 +1,12 @@
 <template>
 	<div class="address">
-		<cell-link :cell-link-data="addressData"></cell-link>
-		<div class="current-address"><span class="icon-check_yuan"></span>默认地址</div>
+		<tip  :card-data="addressData"  msg="您还未添加地址"></tip>
+		<template  v-for="(item, index) in addressData">
+			<cell-link :cell-link-data="item"></cell-link>
+
+			 <div class="current-address" @click="setDefault(index)"><span :class="item.isDefault? 'icon-check_yuan' : 'icon-uncheck_yuan'"></span>{{item.isDefault? '' : '设置为' }}默认地址</div>
+			
+		</template>
 		
 		<router-link class="btn btn-big btn-submit" :to="{name: 'addressAdd'}">新增收货地址</router-link>
 	</div>
@@ -9,23 +14,35 @@
 
 <script type="text/babel">
 	import cellLink from 'components/common/cell-link/cell-link.vue'
+	import tip from 'components/common/card/tip.vue'
 
 	export default {
 		components: {
-			cellLink
+			cellLink, tip
 		},
 		data () {
 			return {
-				addressData: {
-					url: 'addressEdit',
-					label: '叶良辰',
-					name: '13845675678',
-					noArrow: true,
-					nameColor: 'gray',
-					desc: '上海市虹口区广纪路838号B座4楼',
-					arrow: false
-				}
+				addressData: [],
+				myAddressListUrl: 'address/addressList',
+				setDefaultUrl: 'address/setDefault'
 			}
+		},
+		mounted : function(){
+			var vm = this;
+			this.$http.get(this.myAddressListUrl).then(function(response){
+               vm.addressData = response.data.t;
+			})
+		},
+		methods:{
+			setDefault(index){
+				for(var i=0; i<this.addressData.length; i++){
+					this.addressData[i].isDefault =false;
+				}
+				this.addressData[index].isDefault = !this.addressData[index].isDefault;
+				this.$http.post(this.setDefaultUrl, {'addressId': this.addressData[index].addressId}).then(function(response){
+				})
+			}
+			
 		}
 	}
 </script>
@@ -47,5 +64,10 @@
 			margin-right: px2em(15);
 			display: block;
 		}
+	}
+	
+	.no-result{
+	    padding-top: 40px;
+		text-align: center;
 	}
 </style>

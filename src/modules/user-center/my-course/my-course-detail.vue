@@ -7,38 +7,35 @@
 		<div id="id_video_container" style="width:100%; height:auto;"></div>
 		<card :card-data="cardData"></card>
 		
-		<div class="audio">
-			<div class="label"><i></i>字</div>
-			<div ref="audio" :class="['audio-play', {'active': audioStatus}]">
-				<div class="progress" :style="{width: audioProgress + 'px'}"></div>
-				<div class="audio-title">课程重点摘要
-					<div :class="['icon', 'audio-btn', audioStatus ? 'icon-audio_pause' : 'icon-audio_start']" @click="setAudio"></div>
-					<div class="audio-time">{{ audio.time }}”</div>
-				</div>
-			</div>
-			<audio id="audio" preload="auto">
-			  <source src="http://localhost:8089/static/music.mp3" type="audio/mpeg" />
-			</audio>
-		</div>
+		<h-audio v-for="item in audios" :audio-data="item"></h-audio>
 
 		<div class="article">
 			<div class="article-body article-body-padding">
-				<template v-for="item in courseDesc.contents">
-					<p>{{ item.content }}</p>
-				</template>
+				 <p  v-html="cardData.goodsDesc"></p>
+			</div>
+		</div>
+
+		<div class="practice">
+			<div class="practice-header"  v-if="!showQuestion">暂无相关习题</div>
+			<div class="practice-header"  v-if="showQuestion">相关课程习题</div>
+			<question :question-data="item" @increment="addScore" @reduce="reduceScore"  :show-result="showResult"  :question-index="index + 1" :clear="clear" v-for="(item, index) in courseQuestion"></question>
+			<div class="btn btn-big" @click="showDialog"  v-if="showQuestion">习题测试结果</div>
+
+			<div class="erweima" v-if="qrPath">
+				<p>{{qrInfo}}</p>
+			 
+				<img  v-if="dpr1" :src="qrPath" alt="erweima">
+
+				<a :href="qrPath" v-else>
+					<img :src="qrPath" alt="erweima">
+				</a>
+			</div>
+
+			<div class="erweima" v-else>
+				<p>{{qrInfo}}</p>
 			</div>
 		</div>
 		
-		<div class="practice">
-			<div class="practice-header">相关课程习题</div>
-			<question :question-data="item" :question-index="index + 1" v-for="(item, index) in courseQuestion"></question>
-			<div class="btn btn-big" @click="showDialog">习题测试结果</div>
-
-			<div class="erweima">
-				<p>扫一扫下方二维码加入我们的答疑群</p>
-				<img src="~assets/img/erweima.jpg" alt="erweima">
-			</div>
-		</div>
 
 		<div class="shade" v-if="dialogShow"></div>
 		<div class="dialog icon-dialogbg" v-if="dialogShow">
@@ -47,12 +44,12 @@
 				<div class="dialog-close icon-dialogclose"></div>
 			</div>
 			<div class="dialog-body">
-				<div class="icon icon-result">80分</div>
-				<p>你没有作弊吧</p>
-				<p>看来我们要更新题库了</p>
+				<div class="icon icon-result">{{total}}分</div>
+				<p>{{remark.p1}}</p>
+				<p>{{remark.p2}}</p>
 			</div>
 			<div class="dialog-btns btns">
-				<div class="btn" @click="ok">不服来战</div>
+				<div class="btn" @click="reflashQuestion">不服来战</div>
 				<div class="btn" @click="ok">我知道了</div>
 			</div>
 		</div>
@@ -60,25 +57,24 @@
 </template>
 
 <script type="text/babel">
-	// require('assets/js/video/h5connect.js');
-
 	import card from 'components/common/card/card.vue';
+	import hAudio from 'components/common/audio/audio.vue';
 	import question from 'components/common/question/question.vue';
 	
 	import courseImg from 'assets/img/course-detail.jpg';
 
 	export default {
 		components: {
-			card, question
+			card, question, hAudio
 		},
 		data () {
 			return {
 				cardData: {
-					// imgPath: courseImg,
 					url: '',
 					params: {},
 					title: '盘古开天第1集',
 				},
+				audios: [],
 				courseDesc: {
 					contents: [
 						{
@@ -125,69 +121,214 @@
 						result: true
 					}
 				],
+				showResult : false,
+				showQuestion : false,
+				clear: false,
 				audio: {
 					time: '20'
 				},
+				level: {
+					week : {
+						p1 : '你很热爱汉字',
+						p2 : '但还要多注意视频中讲到的细节哦！'
+					},
+					middle : {
+						p1 : '哎呦',
+						p2 : '不错哦！你学到了~'
+					},
+					good : {
+						p1 : '你真棒！',
+						p2 : '既冰雪聪明，又认真努力！'
+					}
+				},
+				remark : {
+					p1 : '',
+					p2 : ''
+				},
+				total: 0,
+				autioList:[],
 				audioStatus: false,
 				// audioLength: '',
 				audioProgress: 0,
-				dialogShow: false
+				dialogShow: false,
+				lessonId: '',
+				versionId: '',
+				hasCoupon: false,
+				qrPath: '',
+				qrInfo: '',
+				qrShow: false,
+				lessonDetailUrl: 'usercenter/lessonDetail',
+				lessonQuestionUrl: 'usercenter/lessonQuestion',
+				lessonVoiceUrl: 'usercenter/lessonVoice',
+				qrcodeUrl: 'usercenter/getDimension'
+			}
+		},
+		computed: {
+			dpr1 () {
+				if (document.getElementsByTagName('html')[0].dataset.dpr == 1) {
+					return true
+				} else {
+					return false
+				}
+				// console.log(document.get)
 			}
 		},
 		mounted: function () {
-			var player = new qcVideo.Player("id_video_container", {
-		    "width": document.body.clientWidth,
-		    "height": document.body.clientWidth*0.6,
-		    "hide_h5_setting": true,
-		    "third_video": {
-			    "urls":{
-	          10 : "http://covteam.u.qiniudn.com/oceans.mp4"//演示地址，请替换实际地址
-	        }
-			  }
+			//document.getElementsByClassName("trump-volume-control")[0].style.display='none';
+			// console.log(document.getElementsByClassName('trump-volume-control'));
+			// setTimeout(function(){
+			// 	if (document.getElementsByClassName("trump-volume-control").length != 0 ) {
+			// 		document.getElementsByClassName("trump-volume-control")[0].style.display='none';	
+			// 	}
+			// }, 1000)
+			this.$nextTick(function(){
+				if (document.getElementsByClassName("trump-volume-control").length != 0 ) {
+					document.getElementsByClassName("trump-volume-control")[0].style.display='none';	
+				}
 			})
 		},
-		ready () {
-			console.log(222)
-			console.log(1, qcVideo)
-			var player = new qcVideo.Player("id_video_container", {
-		    "width": 640,
-		    "height": 480,
-		    "third_video": {
-			    "urls":{
-	          20 : "http://localhost:8089/audio.mp4"//演示地址，请替换实际地址
-	        }
-			  }
-			})
+		watch: {
+			audios () {
+
+			}
 		},
 		methods: {
-			setAudio () {
-				let self = this
-				let $audio = document.getElementById('audio')
-				let audioLength = this.$refs.audio.getBoundingClientRect().width
-				// let time = this.audio.time
-				let duration = $audio.duration
-				let $progress = document.querySelector('.progress')
-
-				this.audioStatus = !this.audioStatus
-				if (this.audioStatus) {
-					$audio.play()
-					setInterval(function(argument) {
-						let currentTime = $audio.currentTime
-						self.audioProgress = currentTime/duration * audioLength
-					}, 10)
-				} else {
-					$audio.pause()
-				}
+			initPlayer(){
+				console.log("backup:" + this.cardData.isBackup)
+				if(!this.cardData.isBackup){
+					
+					var player = new qcVideo.Player("id_video_container", {
+						"width": document.body.clientWidth,
+						"height": document.body.clientWidth*0.6,
+						"hide_h5_setting": true,
+						"file_id": this.cardData.vedioId,
+						"app_id": "1253158809",
+					});
+				}else{
+					var player = new qcVideo.Player("id_video_container", {
+						"width": document.body.clientWidth,
+						"height": document.body.clientWidth*0.6,
+						"hide_h5_setting": true,
+						"file_id": this.cardData.vedioId,
+						"app_id": "1253277988",
+					});
+				}		
 			},
 			showDialog () {
-				this.dialogShow = true
+				this.dialogShow = true;
+				this.showResult = true;
+				if(this.total <= 50){
+					this.remark = this.level.week;
+				}else if(this.total < 80){
+					this.remark = this.level.middle;
+				}else{
+					this.remark = this.level.good;
+				}
 			},
 			ok () {
 				this.dialogShow = false
+			},
+			reflashQuestion () {
+				this.total = 0;
+				this.dialogShow = false;
+				this.showResult = false;
+				var vm = this;
+				this.$http.get(this.lessonQuestionUrl, {params:{"lessonId" : this.lessonId, "versionId" : this.versionId}}).then(function(response){
+				   vm.courseQuestion = response.data.t;
+				   vm.clear = !vm.clear;
+				});
+				
+			},
+			addScore(){
+				this.total += 20;
+			},
+			reduceScore(){
+				this.total -= 20;
+				if(this.total < 0){
+					this.total =0;
+				}
+				
+			},
+			fetchData(){
+				this.lessonId = this.$route.params.lessonId;
+				this.versionId = this.$route.params.versionId;
+				var vm = this;
+				
+				this.$http.get(this.lessonDetailUrl, {params:{"lessonId" : this.lessonId, "versionId" : this.versionId}}).then(function(response){
+					if(response.data.result){
+						vm.cardData = response.data.t;
+						vm.cardData.imgPath = '';
+						vm.initPlayer();
+						
+					}else{
+						  layer.open({
+							content: response.data.msg
+							,btn: '我知道了'
+						  });
+						vm.$router.push({name: 'course'});  
+					}
+					
+				});
+				this.$http.get(this.lessonQuestionUrl, {params:{"lessonId" : this.lessonId, "versionId" : this.versionId}}).then(function(response){
+				   vm.courseQuestion = response.data.t;
+				   if(vm.courseQuestion.length > 0){
+						vm.showQuestion = true;
+				   }
+				});
+				vm.audio = [];
+				this.$http.get(this.lessonVoiceUrl, {params:{"lessonId" : this.lessonId, "versionId" : this.versionId}}).then(function(response){
+				   //vm.audios = response.data.t;
+					for(var i=0; i<response.data.t.length; i++){
+						var audioItem = {};
+						audioItem.label = response.data.t[i].voiceWord;
+						audioItem.audio = response.data.t[i].voicePath;
+						audioItem.audioStatus = false;
+						audioItem.audioProgress = 0;
+						audioItem.time = response.data.t[i].time;
+						
+						vm.audios.push(audioItem);
+					}
+				});
+				
+				this.$http.get(this.qrcodeUrl).then(function(response){
+					if(response.data.msg){
+						vm.qrShow = true;
+						 vm.qrPath = response.data.msg;
+					}else{
+						vm.qrShow = false;
+					}
+					vm.qrInfo = response.data.t;
+				  
+				});
 			}
+		},
+		created (){
+			var vm = this;
+			vm.fetchData();
+		},
+		watch:{
+			  '$route':'fetchData'
 		}
 	}
 </script>
+
+<style lang="scss">
+	@import '~assets/css/functions';
+	// 视频插件
+	#trump_main_unique_1 {
+		img {
+			top: 0 !important;
+			left: 0 !important;
+
+			width: 100% !important;
+			height: px2em(450) !important;
+		}
+	}
+
+	.trump-volume-control {
+		display: none !important;
+	}
+</style>
 
 <style lang="scss" scoped>
 	@import '~lib/sandal/core';
@@ -225,108 +366,6 @@
 
 		p {
 			margin-bottom: px2em(30)
-		}
-	}
-
-	.audio {
-		padding: $paddingLeft $paddingRight $paddingLeft $paddingLeft;
-		background-color: $colorBgWhite;
-		margin-bottom: $marginBottom;
-		display: flex;
-		// @extend %clearfix;
-
-		.label {
-			position: relative;
-			width: px2em(60);
-			height: px2em(60);
-			line-height: px2em(60);
-			text-align: center;
-			color: $colorTitleRed;
-			background-color: $colorBg;
-
-			&:before, &:after, i:before, i:after {
-				content: "";
-				position: absolute;
-				top: -1px;
-				left: -1px;
-				width: px2em(10);
-				height: px2em(10);
-				border: px2em(2) solid $colorTitleRed;
-				border-right: 0;
-				border-bottom: 0;
-			}
-
-			&:after {
-				left: auto;
-				right: -1px;
-				border-right: px2em(2) solid $colorTitleRed;
-				border-left: -0;
-			}
-
-			i {
-				&:before {
-					top: auto;
-					bottom: -1px;
-					border-top: 0;
-					border-bottom: px2em(2) solid $colorTitleRed;
-				}
-				&:after {
-					top: auto;
-					bottom: -1px;
-					left: auto;
-					right: -1px;
-					border: 0;
-					border-right: px2em(2) solid $colorTitleRed;
-					border-bottom: px2em(2) solid $colorTitleRed;
-				}
-			}
-		}
-
-		.audio-play {
-			position: relative;
-			width: px2em(620);
-			height: px2em(60);
-			line-height: px2em(60);
-			margin-left: px2em(20);
-			border-radius: px2em(60);
-			background-color: $colorBg;
-    	overflow: hidden;
-
-    	&.active {
-    		.audio-time {
-    			color: $colorTitleRed
-    		}
-    	}
-
-			.progress {
-				content: "";
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 0;
-				height: 100%;
-				background-color: $colorPink;
-				z-index: 1;
-			}
-		}
-		
-		.audio-title {
-			position: relative;
-			text-align: center;
-			z-index: 2;
-		}
-
-		.audio-time {
-			position: absolute;
-			right: px2em(20);
-			top: 0;
-		}
-
-		.audio-btn {
-			position: absolute;
-			top: 50%;
-			left: px2em(20);
-			margin-top: - px2em(10); // 取自图片大小
 		}
 	}
 
@@ -371,5 +410,8 @@
 			margin: px2em(30) px2em(20);
 			border-radius: px2em(20);
 		}
+	}
+	.trump-volume-control{
+		display: none;
 	}
 </style>

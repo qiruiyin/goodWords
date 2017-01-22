@@ -27,7 +27,7 @@
 		data () {
 			return {
 				userInfo: {
-					imgPath: headerImg,
+					imgPath: '',
 					name: '西斯克里夫',
 					msgs: [
 						{
@@ -58,8 +58,18 @@
 						}
 					]
 				},
+				userInfoUrl: 'usercenter/userInfo'
 			}
+		},
+		mounted : function(){
+			var vm = this;
+			this.$http.get(this.userInfoUrl).then(function(response){
+               vm.userInfo.name = response.data.t.nickname;
+			   vm.userInfo.imgPath = response.data.t.headimgurl
+			   
+			})
 		}
+		
 	}
 </script>
 

@@ -4,10 +4,10 @@
 
 <template>
 	<div>
-		<search></search>
-		<card v-for="item in cardDatas" :card-data="item">
+		<search myCourse='false'></search>
+		<card v-for="item in cardDatas" :card-data="item" @changCartNum="addCartNum">
 		</card>
-		<cart></cart>
+		<cart ref="cartRef"></cart>
 	</div>
 </template>
 
@@ -25,6 +25,7 @@
 		},
 		data () {
 			return {
+				/**
 				cardDatas: [
 					{
 						imgPath: card1,
@@ -48,8 +49,33 @@
 						},
 						title: '盘古开天第2集',
 					}
-				]
+				],
+				**/
+				storyId : '',
+				subForderId : '',
+				cardDatas : [],
+				coureslistUrl : "course/lessonList"
 			}
+		},
+		created (){
+			var vm = this;
+			vm.fetchData();
+		},
+		methods: {
+			fetchData(){
+				this.storyId = this.$route.params.courseId;
+				this.subForderId = this.$route.params.subForderId;
+				var vm = this;
+				this.$http.get(this.coureslistUrl, {params:{"storyId" : this.storyId, "subForderId" : this.subForderId}}).then(function(response){
+				   vm.cardDatas = response.data.t;
+				})
+			},
+			addCartNum(num){
+				 this.$refs.cartRef.addCartNum(num);
+			}
+		},
+		watch:{
+			  '$route':'fetchData'
 		}
 	}
 </script>

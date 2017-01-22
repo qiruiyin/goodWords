@@ -3,14 +3,15 @@
  -->
 <template>
 	<div class="shop-cart">
-		<imgText :ref="'imgText'+index" :img-text-data="item" v-for="(item, index) in cartDatas" @on-check="onCheck">
+		<tip  :card-data="cartDatas"  msg="您的购物车是空的"></tip> 
+		<imgText v-if="item.show" :ref="'imgText'+index" :img-text-data="item" v-for="(item, index) in cartDatas" @on-check="onCheck">
 		</imgText>
 		<div class="btns">
 			<div class="select-all" @click="selectAll">
 				<div :class="['checkbox', checkAll ? 'icon-check_yuan': 'icon-uncheck_yuan']"></div>
 				全选
 			</div>
-			<div class="delete">删除</div>
+			<div class="delete" @click="delShopcart">删除</div>
 			<div class="next" @click="next">下一步</div>
 		</div>
 	</div>
@@ -19,14 +20,15 @@
 <script type="text/babel">
 	import imgText from 'components/common/img-text/img-text.vue'
 	import img1 from 'assets/img/shop-cart.jpg'
+	import tip from 'components/common/card/tip.vue'
 
 	export default {
 		components: {
-			imgText
+			imgText, tip
 		},
 		data () {
 			return {
-				cartDatas: [
+				/**cartDatas: [
 					{
 						imgPath: img1,
 						title: '汉字思维大礼包',
@@ -53,18 +55,56 @@
 						check: false
 					}
 				],
-				checkAll: false
+				**/
+				shopcartListUrl : "shopcart/shopcartList",
+				shopcartDelUrl : "shopcart/delShopcart",
+				shopcartNextUrl : "order/addOrder",
+				cartDatas : [],
+				checkAll: true
 			}
+		},
+		created: function(){
+			var vm = this;
+			vm.fetchData();
+			
 		},
 		methods: {
 			next () {
-				this.$router.push({name: 'confirmOrder'});
+				var vm = this;
+				var shopcartIds = ""
+				var hasChecked = false;
+				for(var i=0; i<this.cartDatas.length; i++){	
+					if( this.cartDatas[i].check){
+						hasChecked = true;
+						if(shopcartIds){
+							shopcartIds = shopcartIds + "-" + this.cartDatas[i].shopcartId;
+						}else{
+							shopcartIds = this.cartDatas[i].shopcartId;
+						}
+					}	
+				}
+				if(hasChecked){
+					vm.$http.post(vm.shopcartNextUrl, { "shopcartIds" : shopcartIds}).then((response) => {
+						vm.$router.push({name: 'confirmOrder', params: {'orderId': response.data.t}});
+					})
+				
+				}else{
+					layer.open({
+					content: '请您先选购商品'
+					,skin: 'msg'
+					,time: 2 //2秒后自动关闭
+				  });
+				}
+
+				
 			},
 			selectAll () {
-				this.checkAll = true
-				for (let key in this.$refs) {
-					this.$refs[key][0].setChecked()
-				}
+				var vm = this;
+				this.checkAll = !this.checkAll
+				
+				 this.cartDatas.every(function(elem) {
+					return elem.check = vm.checkAll
+				})
 			},
 			onCheck (val) {
 				let data
@@ -76,7 +116,53 @@
 				} else {
 					this.checkAll = false
 				}
+			},
+			delChecked(){
+				var vm = this;
+				for(var i=0; i<this.cartDatas.length; i++){	
+					if( this.cartDatas[i].check){
+						vm.cartDatas[i].show = false;
+						vm.$http.post(vm.shopcartDelUrl, { "shopcartId" : this.cartDatas[i].shopcartId}).then((response) => {
+							
+						})
+					}	
+				}
+				
+			},
+			fetchData(){
+				var vm = this;
+				this.$http.get(this.shopcartListUrl).then((response)=>{
+					vm.cartDatas = response.data.t;
+					
+				})
+			},
+			delShopcart () {
+				var vm = this;
+				layer.open({
+				content: '您确认要从购物车中删除这些商品？'
+				,btn: ['删除', '取消']
+				,skin: 'footer'
+				,yes: function(index){
+					layer.close(index);
+					vm.delChecked();
+				}
+			  });
 			}
+		},
+		computed : {
+			totalMoney : function(){
+				var vm = this;
+				var total = 0;
+				for(var i=0; i<this.cartDatas.length; i++){	
+					if( this.cartDatas[i].check && this.cartDatas[i].price != "免费"){
+						total += (this.cartDatas[i].priceNum * 1)
+					}	
+				}	
+				return total;
+			}
+		},
+		watch:{
+			  '$route':'fetchData'
 		}
 	}
 </script>
@@ -98,6 +184,7 @@
 		border-top: 2px solid $colorLine;
 		display: flex;
 		text-align: center;
+		z-index: 9;
 
 		.delete {
 			flex: 1;
@@ -120,5 +207,10 @@
 			left: px2em(20);
 			margin-top: - px2em(18);
 		}
+	}
+	
+	.no-result{
+	    padding-top: 40px;
+		text-align: center;
 	}
 </style>
